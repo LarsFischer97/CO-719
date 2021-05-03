@@ -1,0 +1,1352 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "title": "OData Service for Business Objects Models",
+    "contact": {
+      "name": "d.velop",
+      "url": "http://d-velop.de",
+      "email": "cloudmigration@d-velop.de"
+    },
+    "version": "1.0.0",
+    "x-dvelop-service-name": "Models"
+  },
+  "servers": [
+    {
+      "url": "{baseURI}/businessobjects/core/models"
+    }
+  ],
+  "paths": {
+    "/customModels": {
+      "get": {
+        "tags": [
+          "customModels"
+        ],
+        "summary": "List all custom models",
+        "description": "Retrieves all custom models.",
+        "operationId": "Get custom models",
+        "responses": {
+          "200": {
+            "description": "Retrieved custom models",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "title": "Collection of customModels",
+                  "type": "object",
+                  "properties": {
+                    "value": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/customModel"
+                      }
+                    }
+                  }
+                },
+                "example": {
+                  "value": [
+                    {
+                      "id": "a2ba1abe-b708-43fe-bd59-c54c4940000f",
+                      "name": "example1",
+                      "description": "First example for the API documentation",
+                      "state": "staged"
+                    },
+                    {
+                      "id": "83e56be3-e1dd-4641-babc-54a8e358a928",
+                      "name": "example2",
+                      "description": "Second example for the API documentation",
+                      "state": "published"
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "customModels"
+        ],
+        "summary": "Create a new custom model",
+        "description": "Creates a new custom model.",
+        "operationId": "Post custom model",
+        "requestBody": {
+          "description": "The custom model to be created",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/customModel"
+              },
+              "example": {
+                "name": "example",
+                "description": "A sample service for Business Objects",
+                "state": "initial"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "Created custom model",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/customModel"
+                },
+                "example": {
+                  "id": "5d9aa2ef-397c-4bf1-b6ec-32e60bc3653e",
+                  "name": "example",
+                  "description": "A sample service for Business Objects",
+                  "state": "initial"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/customModels({cmId})": {
+      "get": {
+        "tags": [
+          "customModels"
+        ],
+        "summary": "Get custom model details",
+        "description": "Retrieves the information of the given custom model.",
+        "operationId": "Get custom model",
+        "parameters": [
+          {
+            "name": "cmId",
+            "in": "path",
+            "description": "The unique identifier of the custom model.",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Retrieved custom model",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/customModel"
+                },
+                "example": {
+                  "id": "5d9aa2ef-397c-4bf1-b6ec-32e60bc3653e",
+                  "name": "example",
+                  "description": "A sample service for Business Objects",
+                  "state": "initial"
+                }
+              }
+            }
+          }
+        }
+      },
+      "patch": {
+        "tags": [
+          "customModels"
+        ],
+        "summary": "Partially update a custom model",
+        "description": "Updates an existing custom model partially.",
+        "operationId": "Patch custom model",
+        "parameters": [
+          {
+            "name": "cmId",
+            "in": "path",
+            "description": "The unique identifier of the custom model.",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "requestBody": {
+          "description": "New custom model",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/customModel"
+              },
+              "example": {
+                "description": "Partially updating a custom model for the API documentation"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "204": {
+            "description": "Success"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "customModels"
+        ],
+        "summary": "Replace a custom model",
+        "description": "Replaces an existing custom model.",
+        "operationId": "Put custom model",
+        "parameters": [
+          {
+            "name": "cmId",
+            "in": "path",
+            "description": "The unique identifier of the custom model.",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "requestBody": {
+          "description": "New custom model",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/customModel"
+              },
+              "example": {
+                "name": "api_documentation_replaced",
+                "description": "Replacing a custom model for the API documentation"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "204": {
+            "description": "Success"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "customModels"
+        ],
+        "summary": "Delete a custom model",
+        "description": "Delete an existing custom model.",
+        "operationId": "Delete custom model",
+        "parameters": [
+          {
+            "name": "cmId",
+            "in": "path",
+            "description": "The unique identifier of the custom model.",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Last known state of deleted custom model",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/customModel"
+                },
+                "example": {
+                  "id": "5d9aa2ef-397c-4bf1-b6ec-32e60bc3653e",
+                  "name": "example",
+                  "description": "A sample service for Business Objects",
+                  "state": "initial"
+                }
+              }
+            }
+          },
+          "204": {
+            "description": "Not found or already deleted"
+          }
+        }
+      }
+    },
+    "/customModels({cmId})/entityTypes": {
+      "get": {
+        "tags": [
+          "entityTypes"
+        ],
+        "summary": "List all entity types",
+        "description": "Retrieves all entity types.",
+        "operationId": "Get entity types",
+        "parameters": [
+          {
+            "name": "cmId",
+            "in": "path",
+            "description": "The unique identifier of the custom model.",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Retrieved entity types",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "title": "Collection of entityTypes",
+                  "type": "object",
+                  "properties": {
+                    "value": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/entityType"
+                      }
+                    }
+                  }
+                },
+                "example": {
+                  "value": [
+                    {
+                      "id": "c30c860b-ce22-4374-9796-cec16b6fedc6",
+                      "name": "invoice",
+                      "pluralName": "invoices",
+                      "key": {
+                        "id": "67593121-e653-4875-a83d-f7aa5b4074fc",
+                        "name": "id",
+                        "type": "guid"
+                      }
+                    },
+                    {
+                      "id": "ed18e695-8ae4-4203-b0fd-529d1e25b5af",
+                      "name": "product",
+                      "pluralName": "products",
+                      "key": {
+                        "id": "fa49704f-9c09-47c6-8dcc-f4b2985317e0",
+                        "name": "id",
+                        "type": "guid"
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "entityTypes"
+        ],
+        "summary": "Create a new entity type",
+        "description": "Creates a new entity type.",
+        "operationId": "Post entity type",
+        "parameters": [
+          {
+            "name": "cmId",
+            "in": "path",
+            "description": "The unique identifier of the custom model.",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "requestBody": {
+          "description": "The entity type to be created",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/entityType"
+              },
+              "example": {
+                "name": "customer",
+                "pluralName": "customers",
+                "key": {
+                  "name": "id",
+                  "type": "guid",
+                  "description": "Unique identifier of the customer"
+                },
+                "description": "A simple customer schema as an example for the API documentation"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "Created entity type",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/entityType"
+                },
+                "example": {
+                  "name": "customer",
+                  "pluralName": "customers",
+                  "description": "A simple customer schema as an example for the API documentation"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/customModels({cmId})/entityTypes({etId})": {
+      "get": {
+        "tags": [
+          "entityTypes"
+        ],
+        "summary": "Get entity type details",
+        "description": "Retrieves the information of the given entity type.",
+        "operationId": "Get entity type",
+        "parameters": [
+          {
+            "name": "cmId",
+            "in": "path",
+            "description": "The unique identifier of the custom model.",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "etId",
+            "in": "path",
+            "description": "The unique identifier of the entity type.",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Retrieved entity type",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/entityType"
+                },
+                "example": {
+                  "id": "8de50cbc-3693-4406-ad1b-feda454230e2",
+                  "name": "customer",
+                  "pluralName": "customers",
+                  "description": "A simple customer schema as an example for the API documentation"
+                }
+              }
+            }
+          }
+        }
+      },
+      "patch": {
+        "tags": [
+          "entityTypes"
+        ],
+        "summary": "Partially update a entity type",
+        "description": "Updates an existing entity type partially.",
+        "operationId": "Patch entity type",
+        "parameters": [
+          {
+            "name": "cmId",
+            "in": "path",
+            "description": "The unique identifier of the custom model.",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "etId",
+            "in": "path",
+            "description": "The unique identifier of the entity type.",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "requestBody": {
+          "description": "New entity type",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/entityType"
+              },
+              "example": {
+                "description": "Partially updating an entity type for the API documentation"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "204": {
+            "description": "Success"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "entityTypes"
+        ],
+        "summary": "Replace a entity type",
+        "description": "Replaces an existing entity type.",
+        "operationId": "Put entity type",
+        "parameters": [
+          {
+            "name": "cmId",
+            "in": "path",
+            "description": "The unique identifier of the custom model.",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "etId",
+            "in": "path",
+            "description": "The unique identifier of the entity type.",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "requestBody": {
+          "description": "New entity type",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/entityType"
+              },
+              "example": {
+                "name": "TestCustomer",
+                "pluralName": "TestCustomers",
+                "description": "Replacing an entity type for the API documentation"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "204": {
+            "description": "Success"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "entityTypes"
+        ],
+        "summary": "Delete a entity type",
+        "description": "Delete an existing entity type.",
+        "operationId": "Delete entity type",
+        "parameters": [
+          {
+            "name": "cmId",
+            "in": "path",
+            "description": "The unique identifier of the custom model.",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "etId",
+            "in": "path",
+            "description": "The unique identifier of the entity type.",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Last known state of deleted entity type",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/entityType"
+                },
+                "example": {
+                  "name": "customer",
+                  "pluralName": "customers",
+                  "description": "A simple customer schema as an example for the API documentation"
+                }
+              }
+            }
+          },
+          "204": {
+            "description": "Not found or already deleted"
+          }
+        }
+      }
+    },
+    "/customModels({cmId})/entityTypes({etId})/properties": {
+      "get": {
+        "tags": [
+          "properties"
+        ],
+        "summary": "List all properties",
+        "description": "Retrieves all properties.",
+        "operationId": "Get properties",
+        "parameters": [
+          {
+            "name": "cmId",
+            "in": "path",
+            "description": "The unique identifier of the custom model.",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "etId",
+            "in": "path",
+            "description": "The unique identifier of the entity type.",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Retrieved properties",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "title": "Collection of properties",
+                  "type": "object",
+                  "properties": {
+                    "value": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/property"
+                      }
+                    }
+                  }
+                },
+                "example": {
+                  "value": [
+                    {
+                      "id": "1ce177c2-ae1f-491a-9d32-0bd865d69bca",
+                      "name": "rating",
+                      "type": "decimal"
+                    },
+                    {
+                      "id": "9a4e688a-6cdf-4fed-ae82-9ecf54f410a3",
+                      "name": "code",
+                      "type": "int16"
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "properties"
+        ],
+        "summary": "Create a new property",
+        "description": "Creates a new property.",
+        "operationId": "Post property",
+        "parameters": [
+          {
+            "name": "cmId",
+            "in": "path",
+            "description": "The unique identifier of the custom model.",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "etId",
+            "in": "path",
+            "description": "The unique identifier of the entity type.",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "requestBody": {
+          "description": "The property to be created",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/property"
+              },
+              "example": {
+                "name": "name",
+                "type": "string",
+                "description": "Name of the customer"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "Created property",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/property"
+                },
+                "example": {
+                  "id": "20936473-f703-45b0-9305-be5066c94f15",
+                  "name": "name",
+                  "type": "string",
+                  "description": "Name of the customer"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/customModels({cmId})/entityTypes({etId})/properties({pId})": {
+      "get": {
+        "tags": [
+          "properties"
+        ],
+        "summary": "Get property details",
+        "description": "Retrieves the information of the given property.",
+        "operationId": "Get property",
+        "parameters": [
+          {
+            "name": "cmId",
+            "in": "path",
+            "description": "The unique identifier of the custom model.",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "etId",
+            "in": "path",
+            "description": "The unique identifier of the entity type.",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "pId",
+            "in": "path",
+            "description": "The unique identifier of the property.",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Retrieved property",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/property"
+                },
+                "example": {
+                  "id": "20936473-f703-45b0-9305-be5066c94f15",
+                  "name": "name",
+                  "type": "string",
+                  "description": "Name of the customer"
+                }
+              }
+            }
+          }
+        }
+      },
+      "patch": {
+        "tags": [
+          "properties"
+        ],
+        "summary": "Partially update a property",
+        "description": "Updates an existing property partially.",
+        "operationId": "Patch property",
+        "parameters": [
+          {
+            "name": "cmId",
+            "in": "path",
+            "description": "The unique identifier of the custom model.",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "etId",
+            "in": "path",
+            "description": "The unique identifier of the entity type.",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "pId",
+            "in": "path",
+            "description": "The unique identifier of the property.",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "requestBody": {
+          "description": "New property",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/property"
+              },
+              "example": {
+                "description": "Partially updating a property type for the API documentation"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "204": {
+            "description": "Success"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "properties"
+        ],
+        "summary": "Replace a property",
+        "description": "Replaces an existing property.",
+        "operationId": "Put property",
+        "parameters": [
+          {
+            "name": "cmId",
+            "in": "path",
+            "description": "The unique identifier of the custom model.",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "etId",
+            "in": "path",
+            "description": "The unique identifier of the entity type.",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "pId",
+            "in": "path",
+            "description": "The unique identifier of the property.",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "requestBody": {
+          "description": "New property",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/property"
+              },
+              "example": {
+                "name": "TestName",
+                "type": "string",
+                "description": "Replacing a property for the API documentation"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "204": {
+            "description": "Success"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "properties"
+        ],
+        "summary": "Delete a property",
+        "description": "Delete an existing property.",
+        "operationId": "Delete property",
+        "parameters": [
+          {
+            "name": "cmId",
+            "in": "path",
+            "description": "The unique identifier of the custom model.",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "etId",
+            "in": "path",
+            "description": "The unique identifier of the entity type.",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "pId",
+            "in": "path",
+            "description": "The unique identifier of the property.",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Last known state of deleted property",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/property"
+                },
+                "example": {
+                  "id": "20936473-f703-45b0-9305-be5066c94f15",
+                  "name": "name",
+                  "type": "string",
+                  "description": "Name of the customer"
+                }
+              }
+            }
+          },
+          "204": {
+            "description": "Not found or already deleted"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "customModel": {
+        "title": "customModel",
+        "required": [
+          "id",
+          "name"
+        ],
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "The unique identifier of the custom model (generated by the service).",
+            "format": "uuid"
+          },
+          "name": {
+            "type": "string",
+            "description": "The name of the custom model. It serves as part of the service root URL under which the entities are available and must be unique."
+          },
+          "state": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/stateType"
+              }
+            ],
+            "description": "The current state of this custom model (default: initial).",
+            "default": "initial",
+            "nullable": true
+          },
+          "description": {
+            "type": "string",
+            "description": "An arbitrary string attached to the custom model. Often useful for displaying it to users.",
+            "nullable": true
+          },
+          "entityTypes": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/entityType"
+            },
+            "description": "The entity types of the custom model."
+          }
+        },
+        "description": "A user-defined data model, that arranges data elements and covers the relationship of these elements to one another and to entities of reality."
+      },
+      "entityType": {
+        "title": "entityType",
+        "required": [
+          "id",
+          "name",
+          "pluralName",
+          "key"
+        ],
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "The unique identifier of the entity type (generated by the service).",
+            "format": "uuid"
+          },
+          "name": {
+            "type": "string",
+            "description": "The name of the entity type. It must be unique within the custom model."
+          },
+          "pluralName": {
+            "type": "string",
+            "description": "The plural name of the entity type. It serves as the entity set (resource) part of the URL under which the entities are available and must be unique within the custom model."
+          },
+          "description": {
+            "type": "string",
+            "description": "An arbitrary string attached to the entity type. Often useful for displaying it to users.",
+            "nullable": true
+          },
+          "state": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/stateType"
+              }
+            ],
+            "description": "The current state of this entity type. It is derived from the state of the custom model. This property is read-only.",
+            "nullable": true
+          },
+          "key": {
+            "$ref": "#/components/schemas/key"
+          },
+          "properties": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/property"
+            },
+            "description": "The properties of the entity type."
+          }
+        },
+        "description": "An entity is not determined by properties, but by an identity. For example, a person is usually represented as an entity."
+      },
+      "key": {
+        "title": "key",
+        "required": [
+          "id",
+          "name"
+        ],
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "The unique identifier of the key property (generated by the service).",
+            "format": "uuid"
+          },
+          "name": {
+            "type": "string",
+            "description": "The name of the key property. Together with the name of all other properties, it must be unique within the entity type."
+          },
+          "type": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/keyType"
+              }
+            ],
+            "description": "The type of the key property. It specifies the range of values for the key property and thus defines how an entity is uniquely identified.",
+            "nullable": true
+          },
+          "description": {
+            "type": "string",
+            "description": "An arbitrary string attached to the key property. Often useful for displaying it to users.",
+            "nullable": true
+          },
+          "state": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/stateType"
+              }
+            ],
+            "description": "The current state of this key property. It is derived from the state of the custom model. This property is read-only.",
+            "nullable": true
+          }
+        },
+        "description": "A key property is a unique identifier for clear identification of an entity. In principle, identifiers can be used to identify any objects from products to people to abstract concepts."
+      },
+      "property": {
+        "title": "property",
+        "required": [
+          "id",
+          "name"
+        ],
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "The unique identifier of the property (generated by the service).",
+            "format": "uuid"
+          },
+          "name": {
+            "type": "string",
+            "description": "The name of the property. Together with the name of the key property, it must be unique within the entity type."
+          },
+          "required": {
+            "type": "boolean",
+            "description": "Determines whether the property is an required property.",
+            "default": false,
+            "nullable": true
+          },
+          "indexed": {
+            "type": "boolean",
+            "description": "Determines whether the property is an indexed property.",
+            "default": false,
+            "nullable": true
+          },
+          "type": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/propertyType"
+              }
+            ],
+            "description": "The type of the property. It determines the kind and range of values the property can store.",
+            "nullable": true
+          },
+          "description": {
+            "type": "string",
+            "description": "An arbitrary string attached to the property. Often useful for displaying it to users.",
+            "nullable": true
+          },
+          "state": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/stateType"
+              }
+            ],
+            "description": "The current state of this property. It is derived from the state of the custom model. This property is read-only.",
+            "nullable": true
+          }
+        },
+        "description": "Each entity type in a model has a set of properties. It is these properties that are typically of interest for the further use and processing of an entity."
+      },
+      "keyType": {
+        "title": "keyType",
+        "enum": [
+          "guid",
+          "int32",
+          "int64",
+          "string"
+        ],
+        "type": "string",
+        "description": "An enumeration type that contains the values that specify the key type.",
+        "x-dvelop-enum-descriptions": [
+          "A 16-byte (128-bit) unique identifier",
+          "A signed 32-bit integer",
+          "A signed 64-bit integer",
+          "A sequence of UTF-8 characters"
+        ]
+      },
+      "propertyType": {
+        "title": "propertyType",
+        "enum": [
+          "binary",
+          "boolean",
+          "byte",
+          "dateTimeOffset",
+          "decimal",
+          "double",
+          "guid",
+          "int16",
+          "int32",
+          "int64",
+          "sByte",
+          "single",
+          "string",
+          "date",
+          "list<string>"
+        ],
+        "type": "string",
+        "description": "An enumeration type that contains the values that specify a property type.",
+        "x-dvelop-enum-descriptions": [
+          "Binary data",
+          "A binary-valued logic value",
+          "An unsigned 8-bit integer",
+          "A date and time value with a fixed time-zone offset of +00:00",
+          "A numeric value with fixed precision and scale",
+          "An IEEE 754 binary64 floating-point number",
+          "A 16-byte (128-bit) unique identifier",
+          "A signed 16-bit integer",
+          "A signed 32-bit integer",
+          "A signed 64-bit integer",
+          "A signed 8-bit integer",
+          "An IEEE 754 binary32 floating-point number",
+          "A sequence of UTF-8 characters",
+          "A date value",
+          "A list of strings"
+        ]
+      },
+      "stateType": {
+        "title": "stateType",
+        "enum": [
+          "initial",
+          "staged",
+          "published"
+        ],
+        "type": "string",
+        "description": "An enumeration type that contains the values of different states that a state aware model element can have.",
+        "x-dvelop-enum-descriptions": [
+          "The model element has an initial status and is a draft. This is the default value when creating the model element.",
+          "The model element is staged. All instance data of the model element are kept in an intermediate storage area.",
+          "The model element is publicly available to end users and all instance data of the model element are kept in the production storage area."
+        ]
+      },
+      "common/error/errorResponse": {
+        "title": "errorResponse",
+        "required": [
+          "error"
+        ],
+        "type": "object",
+        "properties": {
+          "error": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/common/error/errorContainer"
+              }
+            ],
+            "description": "The actual error payload."
+          }
+        },
+        "description": "Represents an error response object."
+      },
+      "common/error/errorContainer": {
+        "title": "errorContainer",
+        "required": [
+          "code",
+          "message"
+        ],
+        "type": "object",
+        "properties": {
+          "code": {
+            "title": "code",
+            "type": "string",
+            "description": "A service-defined error code."
+          },
+          "message": {
+            "title": "message",
+            "type": "string",
+            "description": "A human-readable representation of the error."
+          },
+          "details": {
+            "title": "details",
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/common/error/errorDetail"
+            },
+            "description": "A collection of error details.",
+            "nullable": true
+          },
+          "innerError": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/common/error/innerError"
+              }
+            ],
+            "description": "Debugging information to help determine the error cause.",
+            "nullable": true
+          }
+        },
+        "description": "Represents an error container encompassing the error payload."
+      },
+      "common/error/errorDetail": {
+        "title": "errorDetail",
+        "required": [
+          "code",
+          "message"
+        ],
+        "type": "object",
+        "properties": {
+          "code": {
+            "title": "code",
+            "type": "string",
+            "description": "An error detail code defined by the service."
+          },
+          "message": {
+            "title": "message",
+            "type": "string",
+            "description": "A human-readable representation of the error detail."
+          }
+        },
+        "description": "Represents an error detail."
+      },
+      "common/error/innerError": {
+        "title": "innerError",
+        "type": "object",
+        "properties": {
+          "timestamp": {
+            "title": "timestamp",
+            "type": "string",
+            "description": "The timestamp as the error occurred.",
+            "format": "date-time",
+            "nullable": true
+          },
+          "requestId": {
+            "title": "requestId",
+            "type": "string",
+            "description": "A randomly generated identifier that uniquely distinguishes each request and that can be used for correlation purposes.",
+            "nullable": true
+          }
+        },
+        "description": "Represents an error object with debugging information to help determine the error cause."
+      }
+    },
+    "securitySchemes": {
+      "BearerAuth": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "AuthSessionId"
+      },
+      "CookieAuth": {
+        "type": "apiKey",
+        "name": "AuthSessionId",
+        "in": "cookie"
+      }
+    }
+  },
+  "tags": [
+    {
+      "name": "customModels"
+    },
+    {
+      "name": "entityTypes"
+    },
+    {
+      "name": "properties"
+    }
+  ]
+}
