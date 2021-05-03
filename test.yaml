@@ -8,16 +8,18 @@ paths:
     get:
       summary: Markdown in Description. 
       description: |
-        Endpoint to create and initiate a pipeline. 
+        # Preface
+        Welcome to the Business Objects API Guide! You can use the Business Objects API to create all the calls you need to integrate with Business Objects. This guide provides information on available endpoints and how to interact with it.
 
-        ### Paragraph
-        In a hole in the ground there lived a hobbit. Not a **nasty**, _dirty_, `wet` hole, filled with the ends
-        of worms and an oozy smell, nor yet a dry, bare, sandy hole with nothing in it to sit down on or to
-        eat: it was a [hobbit-hole](https://en.wikipedia.org/wiki/Hobbit#Lifestyle "Hobbit lifestyles"), and that means comfort.
+        Version: `1.0`
 
+        Last updated: `2021-01-19`
 
-        ### Horizontal Rule `---`
-        ---
+        ## Revision History
+
+        | Date         | Version   | Description                            |
+        | :----------- | :-------- | :------------------------------------- |
+        | `2021-01-19` | `1.0`     | Initial Revision (Friendly-User-Phase) |
 
         ### Number List
         1. Install `node`.
