@@ -1,12 +1,12 @@
 openapi: 3.0.0
 info:
-  title: Markdown Content
+  title: Business Objects API Guide
   description: Test case to show markdown support. For more info check specification (http://spec.openapis.org/oas/v3.0.3)
   version: 1.0.0
 paths:
   /markdown:
     get:
-      summary: Markdown in Description. 
+      summary: 
       description: |
         # Preface
         Welcome to the Business Objects API Guide! You can use the Business Objects API to create all the calls you need to integrate with Business Objects. This guide provides information on available endpoints and how to interact with it.
