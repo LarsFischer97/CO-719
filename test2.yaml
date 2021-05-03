@@ -191,7 +191,7 @@ info:
 
   version: 1.0.0
 path:  
-/customModels:
+  /customModels:
     get:
       tags:
         - customModels
