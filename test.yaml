@@ -46,7 +46,7 @@ paths:
         The following roles are used by Business Objects:
 
         | Role | Permissions | Description |
-        |------|-------------|-------------|
+        |:------|:-------------|:-------------|
         | Tenant Admin | All application permissions | Predefined administration role with tenant wide permissions |
         | Model Admin | Read and write (create, update, read) custom models and permission configuration | Administration of the model configuration and the permission configuration |
         | Data Writer | Write instance data (create, update, delete) | Usually, for technical users who need write access to the instance data |
