@@ -1,6 +1,14 @@
 openapi: 3.0.1
 info:
-  title: Business Objects API Guide
+    title: OData Service for Business Objects Models
+  contact:
+    name: d.velop
+    url: http://d-velop.de
+    email: cloudmigration@d-velop.de
+  version: 1.0.0
+  x-dvelop-service-name: Models
+servers:
+  - url: '{baseURI}/businessobjects/core/models'
   description: |
         # Preface
         Welcome to the Business Objects API Guide! You can use the Business Objects API to create all the calls you need to integrate with Business Objects. This guide provides information on available endpoints and how to interact with it.
