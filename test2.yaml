@@ -192,8 +192,6 @@ info:
         | resourceNotFound | The requested resource could not be found. |
         | transitionInvalid | The specified transition is invalid. |
         | writeConflict | There was a conflict while attempting to write the entity. |
-
-
 servers:
   - url: '{baseURI}/businessobjects/core/models'
 paths:  
