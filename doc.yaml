@@ -29,7 +29,7 @@ info:
         ## API Root endpoint
         In this documentation, we will use the term *Root endpoint* to refer to the base address of the Business Objects service.
         | Root endpoint | `https://<tenantDomain>.d-velop.cloud/businessobjects/` |
-        |---------------|---------------------------------------------------------|
+        |:--------------|:--------------------------------------------------------|
         Unless stated otherwise, all addresses in the rest of this documentation are relative to the root endpoint.
         ## Making requests
         ### HTTP verbs
