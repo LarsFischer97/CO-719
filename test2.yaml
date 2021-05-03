@@ -1,7 +1,7 @@
 openapi: 3.0.1
 info:
-    title: OData Service for Business Objects Models
-    contact:
+  title: OData Service for Business Objects Models
+  contact:
     name: d.velop
     url: http://d-velop.de
     email: cloudmigration@d-velop.de
