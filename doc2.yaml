@@ -152,6 +152,7 @@ info:
         | writeConflict | There was a conflict while attempting to write the entity. |
 servers:
   - url: '{baseURI}/businessobjects/core/models'
+  - url: '{baseURI}/businessobjects/custom/example'
 paths:
   /customModels:
     get:
@@ -1070,14 +1071,7 @@ components:
       type: apiKey
       name: AuthSessionId
       in: cookie
-tags:
-  - name: customModels
-  - name: entityTypes
-  - name: properties
-  
-  servers:
-  - url: '{baseURI}/businessobjects/custom/example'
-paths:
+      
   /customers:
     get:
       tags:
@@ -1332,4 +1326,7 @@ components:
       name: AuthSessionId
       in: cookie
 tags:
+  - name: customModels
+  - name: entityTypes
+  - name: properties
   - name: customers
