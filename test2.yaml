@@ -5,7 +5,6 @@ info:
     name: d.velop
     url: http://d-velop.de
     email: cloudmigration@d-velop.de
-  version: 1.0.0
   x-dvelop-service-name: Models
 servers:
   - url: '{baseURI}/businessobjects/core/models'
@@ -198,7 +197,7 @@ servers:
 
 
   version: 1.0.0
-path:  
+paths:  
   /customModels:
     get:
       tags:
