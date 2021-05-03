@@ -105,6 +105,36 @@ paths:
         | Data Writer | Write instance data (create, update, delete) | Usually, for technical users who need write access to the instance data |
         | Data Reader | Read instance data | Typically assigned to technical users who need read access to the instance data |
 
+        # Errors
+        If an error occurs, the response contains an HTTP status code and usually also a response body with an error code and a message. The error codes are machine-readable codes that allow clients to better understand the context of the error and respond appropriately. The message includes a user-friendly explanation of the error.
+
+        Business Objects uses conventional HTTP status codes that most clients are familiar with to indicate the success or failure of an request:
+
+        * `2xx` - Indicate success
+        * `4xx` - Indicate failure, the cause of the failure resulted from the provided information and typically lies in responsibility of the client
+        * `5xx` - Indicate errors that occurred on our servers
+
+        ## Frequently used HTTP status codes
+        The following is a list of common HTTP status codes you see in response from the API and what they mean. Details on error handling for the individual resources can be found in the respective section.
+
+        | HTTP Status Code | Description |
+        |------------------|-------------|
+        | `200 OK` | Everything worked as expected and the response body contains the representation requested. |
+        | `201 Created` | The request was successful, a new resource was created and the response body contains an unexpanded representation of the created resource. The location of the newly created resource can be found in the `Location` header. |
+        | `204 No Content` | Everything worked as expected and the response body is empty. |
+        | `400 Bad Request` | The request contains syntactic or semantic errors. The response body contains further error details that the client can use to troubleshoot the problem. |
+        | `401 Unauthorized` | The request couldn't be authenticated. |
+        | `403 Forbidden` | The client doesn't have permissions to perform the request. |
+        | `404 Not Found` | The requested resource could not be found. |
+        | `409 Conflict` | The requested operation on the resource cannot be performed due to the resource status. |
+        | `413 Request Entity Too Large` | The request body is larger than the defined limits. |
+        | `414 URI Too Long` | The URI requested is longer than the defined limits. |
+        | `415 Unsupported Media Type` | The request was rejected because the payload format is not supported. |
+        | `429 Too Many Requests` | Too many requests have been sent in a given amount of time. |
+        | `431 Request Header Fields Too Large` | The request's HTTP headers are too long. |
+        | `500 Internal Server Error` | There was a technical problem with the API server. | 
+        | `501 Not Implemented` | The functionality required to fulfill the request is not supported. | 
+        | `503 Service Unavailable` | The connection is being throttled or the service is temporarily offline for maintenance. |
 
 
         ### Use HTML in markdown
