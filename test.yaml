@@ -34,13 +34,6 @@ paths:
         - Install `npm`.
         - Open you editor
         - Create a JavaScript file
-
-        ### Table
-        | Heading 1 | Left-Justified | Centered | Right-Justified |
-        | --------- | :------------- | :------: | --------------: |
-        | text | text | text | text |
-        | text | text | text | text |
-        | text | text | text | text |
         
         ## Application Roles
         The following roles are used by Business Objects:
