@@ -7,7 +7,19 @@ info:
     email: cloudmigration@d-velop.de
   version: 1.0.0
   x-dvelop-service-name: Models
-  description: "test"
+  description: |
+        # Preface
+        Welcome to the Business Objects API Guide! You can use the Business Objects API to create all the calls you need to integrate with Business Objects. This guide provides information on available endpoints and how to interact with it.
+
+        Version: `1.0`
+
+        Last updated: `2021-01-19`
+
+        ## Revision History
+
+        | Date         | Version   | Description                            |
+        | :----------- | :-------- | :------------------------------------- |
+        | `2021-01-19` | `1.0`     | Initial Revision (Friendly-User-Phase) |
 servers:
   - url: '{baseURI}/businessobjects/core/models'
 paths:
