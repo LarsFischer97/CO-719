@@ -1074,3 +1074,262 @@ tags:
   - name: customModels
   - name: entityTypes
   - name: properties
+  
+  servers:
+  - url: '{baseURI}/businessobjects/custom/example'
+paths:
+  /customers:
+    get:
+      tags:
+        - customers
+      summary: List all customers
+      description: Retrieves all customers.
+      operationId: Get customers
+      responses:
+        '200':
+          description: Retrieved customers
+          content:
+            application/json:
+              schema:
+                title: Collection of customers
+                type: object
+                properties:
+                  value:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/customer'
+              example:
+                value:
+                  - id: 49e086ee-d77e-4009-9332-bfc167e3632c
+                    name: Linda Lindbergh
+                  - id: 43e07423-d04a-4624-add9-126390b73f56
+                    name: Bill Burr
+    post:
+      tags:
+        - customers
+      summary: Create a new customer
+      description: Creates a new customer.
+      operationId: Post customer
+      requestBody:
+        description: The customer to be created
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/customer'
+            example:
+              id: 916e6a4b-3fe2-4801-bc8d-b6aa3dfe970c
+              name: Jack Jones
+        required: true
+      responses:
+        '201':
+          description: Created customer
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/customer'
+              example:
+                id: 916e6a4b-3fe2-4801-bc8d-b6aa3dfe970c
+                name: Jack Jones
+  '/customers({cId})':
+    get:
+      tags:
+        - customers
+      summary: Get customer details
+      description: Retrieves the information of the given customer.
+      operationId: Get customer
+      parameters:
+        - name: cId
+          in: path
+          description: The unique identifier of the customer.
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: Retrieved customer
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/customer'
+              example:
+                id: 916e6a4b-3fe2-4801-bc8d-b6aa3dfe970c
+                name: Jack Jones
+    patch:
+      tags:
+        - customers
+      summary: Partially update a customer
+      description: Updates an existing customer partially.
+      operationId: Patch customer
+      parameters:
+        - name: cId
+          in: path
+          description: The unique identifier of the customer.
+          required: true
+          schema:
+            type: string
+            format: uuid
+      requestBody:
+        description: New customer
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/customer'
+            example:
+              name: Jack J. Jones
+        required: true
+      responses:
+        '204':
+          description: Success
+    put:
+      tags:
+        - customers
+      summary: Replace a customer
+      description: Replaces an existing customer.
+      operationId: Put customer
+      parameters:
+        - name: cId
+          in: path
+          description: The unique identifier of the customer.
+          required: true
+          schema:
+            type: string
+            format: uuid
+      requestBody:
+        description: New customer
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/customer'
+            example:
+              id: 916e6a4b-3fe2-4801-bc8d-b6aa3dfe970c
+              name: Jack Jones
+        required: true
+      responses:
+        '204':
+          description: Success
+    delete:
+      tags:
+        - customers
+      summary: Delete a customer
+      description: Delete an existing customer.
+      operationId: Delete customer
+      parameters:
+        - name: cId
+          in: path
+          description: The unique identifier of the customer.
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: Last known state of deleted customer
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/customer'
+              example:
+                id: 916e6a4b-3fe2-4801-bc8d-b6aa3dfe970c
+                name: Jack Jones
+        '204':
+          description: Not found or already deleted
+components:
+  schemas:
+    customer:
+      title: customer
+      required:
+        - id
+      type: object
+      properties:
+        id:
+          type: string
+          description: Unique identifier of the customer
+          format: uuid
+        name:
+          type: string
+          description: Name of the customer
+          nullable: true
+      description: A simple customer schema as an example for the API documentation
+    common/error/errorResponse:
+      title: errorResponse
+      required:
+        - error
+      type: object
+      properties:
+        error:
+          anyOf:
+            - $ref: '#/components/schemas/common/error/errorContainer'
+          description: The actual error payload.
+      description: Represents an error response object.
+    common/error/errorContainer:
+      title: errorContainer
+      required:
+        - code
+        - message
+      type: object
+      properties:
+        code:
+          title: code
+          type: string
+          description: A service-defined error code.
+        message:
+          title: message
+          type: string
+          description: A human-readable representation of the error.
+        details:
+          title: details
+          type: array
+          items:
+            $ref: '#/components/schemas/common/error/errorDetail'
+          description: A collection of error details.
+          nullable: true
+        innerError:
+          anyOf:
+            - $ref: '#/components/schemas/common/error/innerError'
+          description: Debugging information to help determine the error cause.
+          nullable: true
+      description: Represents an error container encompassing the error payload.
+    common/error/errorDetail:
+      title: errorDetail
+      required:
+        - code
+        - message
+      type: object
+      properties:
+        code:
+          title: code
+          type: string
+          description: An error detail code defined by the service.
+        message:
+          title: message
+          type: string
+          description: A human-readable representation of the error detail.
+      description: Represents an error detail.
+    common/error/innerError:
+      title: innerError
+      type: object
+      properties:
+        timestamp:
+          title: timestamp
+          type: string
+          description: The timestamp as the error occurred.
+          format: date-time
+          nullable: true
+        requestId:
+          title: requestId
+          type: string
+          description: A randomly generated identifier that uniquely distinguishes each request and that can be used for correlation purposes.
+          nullable: true
+      description: Represents an error object with debugging information to help determine the error cause.
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: AuthSessionId
+    CookieAuth:
+      type: apiKey
+      name: AuthSessionId
+      in: cookie
+tags:
+  - name: customers
