@@ -20,75 +20,103 @@ info:
         | Date         | Version   | Description                            |
         | :----------- | :-------- | :------------------------------------- |
         | `2021-01-19` | `1.0`     | Initial Revision (Friendly-User-Phase) |
+
         # Introduction
         The Business Objects API can be accessed over HTTPS and is based on RESTful design principles and OData V4. We use predictable resource-oriented URLs, accept JSON request bodies and return JSON responses. The only exception to this is our metadata endpoint, which is currently still based on XML. The API uses standard HTTP response codes, authentication, and verbs.
+
         Above all, the self-describing interface of Business Objects will help you to interact with the service without having to know details about the underlying protocol.
+
         ## Prerequisites
         Before you can use the Business Objects API within your application, you first have to subscribe and configure the app in your tenant. To register a new tenant or to subscribe the app visit the d.velop cloud center at https://my.d-velop.cloud/.
+
         Since all requests to the API must be authenticated, users or API keys must also be configured that have the appropriate authorization.
+
         ## API Root endpoint
         In this documentation, we will use the term *Root endpoint* to refer to the base address of the Business Objects service.
-        
-        |Root endpoint|`https://<tenantDomain>.d-velop.cloud/businessobjects/`|
-        |:------------|:------------------------------------------------------|
-        
+
+        | Root endpoint | `https://<tenantDomain>.d-velop.cloud/businessobjects/` |
+        |---------------|---------------------------------------------------------|
+
         Unless stated otherwise, all addresses in the rest of this documentation are relative to the root endpoint.
+
         ## Making requests
         ### HTTP verbs
         As per RESTful design patterns, Business Objects API uses the following HTTP verbs that most clients are familiar with:
+
         * `GET` - Read resources
         * `POST` - Create new resources
         * `PUT` - Replace existing resources
         * `PATCH` - Update parts of resources
         * `DELETE` - Remove resources
+
         `PATCH` is recommended as the preferred means of updating an entity.
+
         ### Request Format
         For `POST`, `PUT`, and `PATCH` requests, the request body is OData flavored JSON (the `Content-Type` header must be set to `application/json`).
+
         ### Response Format
         The default response format is OData flavored JSON (except where noted), encoded in the UTF-8 character encoding. 
-        
+
         # Security
         Requests must be made over HTTPS. Any non-secure requests are met with a redirect to the HTTPS equivalent URI. Make sure that your application validates certificates.
+
         ## Authentication
         Only authenticated users are allowed to make API requests. So using the service requires a valid authentication of the Identity Provider App.
+
         See Identity Provider App documentation for a detailed overview about the authentication and authorization process, on how to get such authentication and how to implement it in your application.
+
         The `AuthSessionId` must be given to every request. This can be done in two ways:
+
         * using the `Authorization` header with the `Bearer` scheme and a bearer token
         * or via a cookie `AuthSessionID` that contains the session id
+
         Which variant should be used depends on your requirements. If Business Objects is accessed from a browser, the use of cookies is more advisable. For server-to-server communication, a bearer token is usually the preferred way.
+
         ### Bearer
         An authorization header containing a valid bearer token can be included in a request like follows:
+
         ```http
         Authorization: Bearer <bearerToken>
         ```
+
         You must replace <bearer_token> with your personal bearer token. It is base64 encoded and usually looks something like `cF9/EIVw...`.
+
         > warning: The bearer token is your key to accessing all of your resources. Always keep it secure. 
+
         ### Cookie
         Cookies are handled automatically in the browser. If you still have to create and transfer the cookie manually, make sure that the `AuthSessionId` has to be URL-encoded.
+
         ## Altering the state of the server
         In the case of HTTP methods that change the server-side state (`POST`, `PUT`, `PATCH`, and `DELETE`), the Origin header must be transferred and must match the target origin. Otherwise the request is rejected with the status code `403 Forbidden`. The Origin request header indicates where a fetch originates from and must be set as follows:
+
         ```http
         Origin: <baseURI> 
         ```
+
         Set the `baseURI` variable to a valid value for your tenant. The format for this is: `https://<tenantDomain>.d-velop.cloud` (the header does not contain any path information).
+
         ## Application Roles
         The following roles are used by Business Objects:
-        
+
         | Role | Permissions | Description |
         |:-----|:------------|:------------|
-        
         | Tenant Admin | All application permissions | Predefined administration role with tenant wide permissions |
         | Model Admin | Read and write (create, update, read) custom models and permission configuration | Administration of the model configuration and the permission configuration |
         | Data Writer | Write instance data (create, update, delete) | Usually, for technical users who need write access to the instance data |
         | Data Reader | Read instance data | Typically assigned to technical users who need read access to the instance data |
+
         # Errors
         If an error occurs, the response contains an HTTP status code and usually also a response body with an error code and a message. The error codes are machine-readable codes that allow clients to better understand the context of the error and respond appropriately. The message includes a user-friendly explanation of the error.
+
         Business Objects uses conventional HTTP status codes that most clients are familiar with to indicate the success or failure of an request:
+
         * `2xx` - Indicate success
         * `4xx` - Indicate failure, the cause of the failure resulted from the provided information and typically lies in responsibility of the client
         * `5xx` - Indicate errors that occurred on our servers
+
         ## Frequently used HTTP status codes
         The following is a list of common HTTP status codes you see in response from the API and what they mean. Details on error handling for the individual resources can be found in the respective section.
+
         | HTTP Status Code | Description |
         |:-----------------|:------------|
         | `200 OK` | Everything worked as expected and the response body contains the representation requested. |
@@ -111,37 +139,38 @@ info:
         ## Error Schema
         ### errorResponse
         Represents an error response object.
-        
+
         | Name | Type | Nullable | Description |
-        | :--- | :--- | :------- | :---------- |
+        | ---- | ---- | -------- | ----------- |
         | error | [errorContainer](#errorcontainer) | false | The actual error payload. |
-        
+
         ### errorContainer
         Represents an error container encompassing the error payload.
-        
+
         | Name | Type | Nullable | Description |
-        | :--- | :--- | :------- | :---------- |
+        | ---- | ---- | -------- | ----------- |
         | code | string | false | A service-defined error code. |
         | message | string | false | A human-readable representation of the error. |
         | details | [errorDetail[]](#errordetail) | true | A collection of error details. |
         | innerError | [innerError](#innererror) | true | Debugging information to help determine the error cause. |
-        
+
         ### errorDetail
         Represents an error detail.
-        
+
         | Name | Type | Nullable | Description |
-        | :--- | :--- | :------- | :---------- |
+        | ---- | ---- | -------- | ----------- |
         | code | string | false | An error detail code defined by the service. |
         | message | string | false | A human-readable representation of the error detail. |
-        
+
         ### innerError
         Represents an error object with debugging information to help determine the error cause.
-        
+
         | Name | Type | Nullable | Description |
-        | :--- | :--- | :------- | :---------- |
+        | ---- | ---- | -------- | ----------- |
         | timestamp | string | true | The timestamp as the error occurred. |
         | requestId | string | true | A randomly generated identifier that uniquely distinguishes each request and that can be used for correlation purposes. |
-        
+
+
         
         ## Error codes
         | Code | Description |
@@ -163,6 +192,7 @@ info:
         | resourceNotFound | The requested resource could not be found. |
         | transitionInvalid | The specified transition is invalid. |
         | writeConflict | There was a conflict while attempting to write the entity. |
+        
 servers:
   - url: '{baseURI}/businessobjects/core/models'
 paths:
