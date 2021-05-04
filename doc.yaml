@@ -28,8 +28,10 @@ info:
         Since all requests to the API must be authenticated, users or API keys must also be configured that have the appropriate authorization.
         ## API Root endpoint
         In this documentation, we will use the term *Root endpoint* to refer to the base address of the Business Objects service.
+        
         |Root endpoint|`https://<tenantDomain>.d-velop.cloud/businessobjects/`|
         |:------------|:------------------------------------------------------|
+        
         Unless stated otherwise, all addresses in the rest of this documentation are relative to the root endpoint.
         ## Making requests
         ### HTTP verbs
@@ -70,8 +72,10 @@ info:
         Set the `baseURI` variable to a valid value for your tenant. The format for this is: `https://<tenantDomain>.d-velop.cloud` (the header does not contain any path information).
         ## Application Roles
         The following roles are used by Business Objects:
+        
         | Role | Permissions | Description |
         |:-----|:------------|:------------|
+        
         | Tenant Admin | All application permissions | Predefined administration role with tenant wide permissions |
         | Model Admin | Read and write (create, update, read) custom models and permission configuration | Administration of the model configuration and the permission configuration |
         | Data Writer | Write instance data (create, update, delete) | Usually, for technical users who need write access to the instance data |
@@ -106,29 +110,37 @@ info:
         ## Error Schema
         ### errorResponse
         Represents an error response object.
+        
         | Name | Type | Nullable | Description |
         | :--- | :--- | :------- | :---------- |
         | error | [errorContainer](#errorcontainer) | false | The actual error payload. |
+        
         ### errorContainer
         Represents an error container encompassing the error payload.
+        
         | Name | Type | Nullable | Description |
         | :--- | :--- | :------- | :---------- |
         | code | string | false | A service-defined error code. |
         | message | string | false | A human-readable representation of the error. |
         | details | [errorDetail[]](#errordetail) | true | A collection of error details. |
         | innerError | [innerError](#innererror) | true | Debugging information to help determine the error cause. |
+        
         ### errorDetail
         Represents an error detail.
+        
         | Name | Type | Nullable | Description |
         | :--- | :--- | :------- | :---------- |
         | code | string | false | An error detail code defined by the service. |
         | message | string | false | A human-readable representation of the error detail. |
+        
         ### innerError
         Represents an error object with debugging information to help determine the error cause.
+        
         | Name | Type | Nullable | Description |
         | :--- | :--- | :------- | :---------- |
         | timestamp | string | true | The timestamp as the error occurred. |
         | requestId | string | true | A randomly generated identifier that uniquely distinguishes each request and that can be used for correlation purposes. |
+        
         
         ## Error codes
         | Code | Description |
