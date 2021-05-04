@@ -1,0 +1,35 @@
+<!doctype html> <!-- Important: must specify -->
+<html>
+  <head>
+    <meta charset="utf-8"> <!-- Important: rapi-doc uses utf8 charecters -->
+    <script type="module" src="https://unpkg.com/rapidoc/dist/rapidoc-min.js"></script>    
+  </head>
+  <body> <!-- rapi-doc settings from: https://mrin9.github.io/RapiDoc/api.html -->
+    <rapi-doc 
+	spec-url = "https://raw.githubusercontent.com/LarsFischer97/temp/main/doc.yaml"
+	theme = "light"
+  render-style = "read"
+  heading-text = "Business Objects API Guide"
+  show-header = "false"
+
+  bg-color = "#F7F7F9"
+  header-color="#FFFFFF"
+  primary-color ="#6D93FF"	
+	regular-font = "Segoe UI"
+  
+  default-schema-tab = "example"
+  schema-style = "tree"
+  schema-expand-level = "999"
+  schema-description-expanded = "true"
+
+  info-description-headings-in-navbar = "true"
+  allow-try = "false"
+
+  nav-bg-color="#343E48"  
+  use-path-in-nav-bar = "false" 
+  nav-item-spacing = "default" 
+  on-nav-tag-click = "show-description"
+	
+	</rapi-doc>
+  </body>
+</html>
