@@ -46,6 +46,7 @@ info:
         For `POST`, `PUT`, and `PATCH` requests, the request body is OData flavored JSON (the `Content-Type` header must be set to `application/json`).
         ### Response Format
         The default response format is OData flavored JSON (except where noted), encoded in the UTF-8 character encoding. 
+        
         # Security
         Requests must be made over HTTPS. Any non-secure requests are met with a redirect to the HTTPS equivalent URI. Make sure that your application validates certificates.
         ## Authentication
