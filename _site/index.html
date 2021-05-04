@@ -1,0 +1,3372 @@
+
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <title>Business Objects API Guide v1.0.0</title>
+
+    <link href="https://unpkg.com/prismjs@1.20.0/themes/prism-okaidia.css" media="screen" rel="stylesheet">
+    <link href="slate/css/print.css" media="print" rel="stylesheet">
+    <link href="slate/css/screen.css" media="screen" rel="stylesheet">
+    <script src="slate/js/lib/jquery.min.js"></script>
+    <script src="slate/js/lib/jquery.highlight.js"></script>
+    <script src="slate/js/lib/energize.js"></script>
+    <script src="slate/js/lib/imagesloaded.min.js"></script>
+    <script src="slate/js/lib/lunr.min.js"></script>
+    <script src="slate/js/app/lang.js"></script>
+    <script src="slate/js/app/toc.js"></script>
+    
+    
+    <script src="slate/js/app/copy.js"></script>
+    
+    <script type="text/javascript">
+      function adjustLanguageSelectorWidth() {
+        const elem = $('.dark-box > .lang-selector');
+        elem.width(elem.parent().width());
+      }
+      $(function() {
+        loadToc($('#toc'), '.toc-link', '.toc-list-h2, .toc-list-h3, .toc-list-h4, .toc-list-h5, .toc-list-h6', 10);
+        setupLanguages($('body').data('languages'));
+        $('.content').imagesLoaded( function() {
+          recacheHeights();
+          refreshToc();
+        });
+        $(window).resize(function() {
+          adjustLanguageSelectorWidth();
+        });
+        adjustLanguageSelectorWidth();
+      });
+      window.onpopstate = function() {
+        activateLanguage(getLanguageFromQueryString());
+      };
+    </script>
+    <!-- slate; content for the head element from source/includes/head.ejs -->
+<meta name="theme-color" content="#F3F7F9">
+
+  </head>
+
+  <body data-languages="[&quot;'ruby&quot;,&quot;'python&quot;]">
+    <a href="#" id="nav-button">
+      <span>
+        NAV
+        <img src="slate/img/navbar.png" alt="Navigation">
+      </span>
+    </a>
+    <div class="toc-wrapper">
+      <img src="slate/img/logo.png" alt="Logo" class="logo">
+      
+        <div class="lang-selector">
+          
+            
+              <a href="#" data-language-name="&#39;ruby">Ruby&#39;</a>
+            
+          
+            
+              <a href="#" data-language-name="&#39;python">Python&#39;</a>
+            
+          
+        </div>
+      
+      
+
+      
+
+      <div id="toc" class="toc-list-h1">
+	  	<ul class="toc-list-h1">
+        
+          <li>
+            <a href="#business-objects-api-guide" class="toc-h1 toc-link" data-title="Business Objects API Guide v1.0.0">Business Objects API Guide v1.0.0</a>
+            
+          </li>
+        
+          <li>
+            <a href="#preface" class="toc-h1 toc-link" data-title="Preface">Preface</a>
+            
+              <ul class="toc-list-h2">
+                
+                  <li>
+                    <a href="#revision-history" class="toc-h2 toc-link" data-title="">Revision History</a>
+                    
+                  </li>
+                
+              </ul>
+            
+          </li>
+        
+          <li>
+            <a href="#introduction" class="toc-h1 toc-link" data-title="Introduction">Introduction</a>
+            
+              <ul class="toc-list-h2">
+                
+                  <li>
+                    <a href="#prerequisites" class="toc-h2 toc-link" data-title="">Prerequisites</a>
+                    
+                  </li>
+                
+                  <li>
+                    <a href="#api-root-endpoint" class="toc-h2 toc-link" data-title="">API Root endpoint</a>
+                    
+                  </li>
+                
+                  <li>
+                    <a href="#making-requests" class="toc-h2 toc-link" data-title="">Making requests</a>
+                    
+                  </li>
+                
+              </ul>
+            
+          </li>
+        
+          <li>
+            <a href="#security" class="toc-h1 toc-link" data-title="Security">Security</a>
+            
+              <ul class="toc-list-h2">
+                
+                  <li>
+                    <a href="#authentication" class="toc-h2 toc-link" data-title="">Authentication</a>
+                    
+                  </li>
+                
+                  <li>
+                    <a href="#altering-the-state-of-the-server" class="toc-h2 toc-link" data-title="">Altering the state of the server</a>
+                    
+                  </li>
+                
+                  <li>
+                    <a href="#application-roles" class="toc-h2 toc-link" data-title="">Application Roles</a>
+                    
+                  </li>
+                
+              </ul>
+            
+          </li>
+        
+          <li>
+            <a href="#errors" class="toc-h1 toc-link" data-title="Errors">Errors</a>
+            
+              <ul class="toc-list-h2">
+                
+                  <li>
+                    <a href="#frequently-used-http-status-codes" class="toc-h2 toc-link" data-title="">Frequently used HTTP status codes</a>
+                    
+                  </li>
+                
+                  <li>
+                    <a href="#error-schema" class="toc-h2 toc-link" data-title="">Error Schema</a>
+                    
+                  </li>
+                
+                  <li>
+                    <a href="#error-codes" class="toc-h2 toc-link" data-title="">Error codes</a>
+                    
+                  </li>
+                
+              </ul>
+            
+          </li>
+        
+          <li>
+            <a href="#authentication-1" class="toc-h1 toc-link" data-title="Authentication">Authentication</a>
+            
+          </li>
+        
+          <li>
+            <a href="#business-objects-api-guide-custommodels" class="toc-h1 toc-link" data-title="customModels">customModels</a>
+            
+              <ul class="toc-list-h2">
+                
+                  <li>
+                    <a href="#list-all-custom-models" class="toc-h2 toc-link" data-title="">List all custom models</a>
+                    
+                  </li>
+                
+                  <li>
+                    <a href="#create-a-new-custom-model" class="toc-h2 toc-link" data-title="">Create a new custom model</a>
+                    
+                  </li>
+                
+                  <li>
+                    <a href="#get-custom-model-details" class="toc-h2 toc-link" data-title="">Get custom model details</a>
+                    
+                  </li>
+                
+                  <li>
+                    <a href="#partially-update-a-custom-model" class="toc-h2 toc-link" data-title="">Partially update a custom model</a>
+                    
+                  </li>
+                
+                  <li>
+                    <a href="#replace-a-custom-model" class="toc-h2 toc-link" data-title="">Replace a custom model</a>
+                    
+                  </li>
+                
+                  <li>
+                    <a href="#delete-a-custom-model" class="toc-h2 toc-link" data-title="">Delete a custom model</a>
+                    
+                  </li>
+                
+              </ul>
+            
+          </li>
+        
+          <li>
+            <a href="#business-objects-api-guide-entitytypes" class="toc-h1 toc-link" data-title="entityTypes">entityTypes</a>
+            
+              <ul class="toc-list-h2">
+                
+                  <li>
+                    <a href="#list-all-entity-types" class="toc-h2 toc-link" data-title="">List all entity types</a>
+                    
+                  </li>
+                
+                  <li>
+                    <a href="#create-a-new-entity-type" class="toc-h2 toc-link" data-title="">Create a new entity type</a>
+                    
+                  </li>
+                
+                  <li>
+                    <a href="#get-entity-type-details" class="toc-h2 toc-link" data-title="">Get entity type details</a>
+                    
+                  </li>
+                
+                  <li>
+                    <a href="#partially-update-a-entity-type" class="toc-h2 toc-link" data-title="">Partially update a entity type</a>
+                    
+                  </li>
+                
+                  <li>
+                    <a href="#replace-a-entity-type" class="toc-h2 toc-link" data-title="">Replace a entity type</a>
+                    
+                  </li>
+                
+                  <li>
+                    <a href="#delete-a-entity-type" class="toc-h2 toc-link" data-title="">Delete a entity type</a>
+                    
+                  </li>
+                
+              </ul>
+            
+          </li>
+        
+          <li>
+            <a href="#business-objects-api-guide-properties" class="toc-h1 toc-link" data-title="properties">properties</a>
+            
+              <ul class="toc-list-h2">
+                
+                  <li>
+                    <a href="#list-all-properties" class="toc-h2 toc-link" data-title="">List all properties</a>
+                    
+                  </li>
+                
+                  <li>
+                    <a href="#create-a-new-property" class="toc-h2 toc-link" data-title="">Create a new property</a>
+                    
+                  </li>
+                
+                  <li>
+                    <a href="#get-property-details" class="toc-h2 toc-link" data-title="">Get property details</a>
+                    
+                  </li>
+                
+                  <li>
+                    <a href="#partially-update-a-property" class="toc-h2 toc-link" data-title="">Partially update a property</a>
+                    
+                  </li>
+                
+                  <li>
+                    <a href="#replace-a-property" class="toc-h2 toc-link" data-title="">Replace a property</a>
+                    
+                  </li>
+                
+                  <li>
+                    <a href="#delete-a-property" class="toc-h2 toc-link" data-title="">Delete a property</a>
+                    
+                  </li>
+                
+              </ul>
+            
+          </li>
+        
+          <li>
+            <a href="#schemas" class="toc-h1 toc-link" data-title="Schemas">Schemas</a>
+            
+              <ul class="toc-list-h2">
+                
+                  <li>
+                    <a href="#tocS_customModel" class="toc-h2 toc-link" data-title="">customModel</a>
+                    
+                  </li>
+                
+                  <li>
+                    <a href="#tocS_entityType" class="toc-h2 toc-link" data-title="">entityType</a>
+                    
+                  </li>
+                
+                  <li>
+                    <a href="#tocS_key" class="toc-h2 toc-link" data-title="">key</a>
+                    
+                  </li>
+                
+                  <li>
+                    <a href="#tocS_property" class="toc-h2 toc-link" data-title="">property</a>
+                    
+                  </li>
+                
+                  <li>
+                    <a href="#tocS_keyType" class="toc-h2 toc-link" data-title="">keyType</a>
+                    
+                  </li>
+                
+                  <li>
+                    <a href="#tocS_propertyType" class="toc-h2 toc-link" data-title="">propertyType</a>
+                    
+                  </li>
+                
+                  <li>
+                    <a href="#tocS_stateType" class="toc-h2 toc-link" data-title="">stateType</a>
+                    
+                  </li>
+                
+                  <li>
+                    <a href="#tocS_common/error/errorResponse" class="toc-h2 toc-link" data-title="">common/error/errorResponse</a>
+                    
+                  </li>
+                
+                  <li>
+                    <a href="#tocS_common/error/errorContainer" class="toc-h2 toc-link" data-title="">common/error/errorContainer</a>
+                    
+                  </li>
+                
+                  <li>
+                    <a href="#tocS_common/error/errorDetail" class="toc-h2 toc-link" data-title="">common/error/errorDetail</a>
+                    
+                  </li>
+                
+                  <li>
+                    <a href="#tocS_common/error/innerError" class="toc-h2 toc-link" data-title="">common/error/innerError</a>
+                    
+                  </li>
+                
+              </ul>
+            
+          </li>
+        
+		</ul>
+      </div>
+      
+        <ul class="toc-footer">
+          
+        </ul>
+      
+    </div>
+    <div class="page-wrapper">
+      <div class="dark-box"></div>
+      <div class="content">
+        <h1 id="business-objects-api-guide">Business Objects API Guide v1.0.0</h1>
+<blockquote>
+<p>Scroll down for code samples, example requests and responses. Select a language for code samples from the tabs above or the mobile navigation menu.</p>
+</blockquote>
+<h1 id="preface">Preface</h1>
+<p>Welcome to the Business Objects API Guide! You can use the Business Objects API to create all the calls you need to integrate with Business Objects. This guide provides information on available endpoints and how to interact with it.</p>
+<p>Version: <code>1.0</code></p>
+<p>Last updated: <code>2021-01-19</code></p>
+<h2 id="revision-history">Revision History</h2>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">Date</th>
+<th style="text-align:left">Version</th>
+<th style="text-align:left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><code>2021-01-19</code></td>
+<td style="text-align:left"><code>1.0</code></td>
+<td style="text-align:left">Initial Revision (Friendly-User-Phase)</td>
+</tr>
+</tbody>
+</table>
+<h1 id="introduction">Introduction</h1>
+<p>The Business Objects API can be accessed over HTTPS and is based on RESTful design principles and OData V4. We use predictable resource-oriented URLs, accept JSON request bodies and return JSON responses. The only exception to this is our metadata endpoint, which is currently still based on XML. The API uses standard HTTP response codes, authentication, and verbs.</p>
+<p>Above all, the self-describing interface of Business Objects will help you to interact with the service without having to know details about the underlying protocol.</p>
+<h2 id="prerequisites">Prerequisites</h2>
+<p>Before you can use the Business Objects API within your application, you first have to subscribe and configure the app in your tenant. To register a new tenant or to subscribe the app visit the d.velop cloud center at <a href="https://my.d-velop.cloud/">https://my.d-velop.cloud/</a>.</p>
+<p>Since all requests to the API must be authenticated, users or API keys must also be configured that have the appropriate authorization.</p>
+<h2 id="api-root-endpoint">API Root endpoint</h2>
+<p>In this documentation, we will use the term <em>Root endpoint</em> to refer to the base address of the Business Objects service.</p>
+<table>
+<thead>
+<tr>
+<th>Root endpoint</th>
+<th><code>https://&lt;tenantDomain&gt;.d-velop.cloud/businessobjects/</code></th>
+</tr>
+</thead>
+</table>
+<p>Unless stated otherwise, all addresses in the rest of this documentation are relative to the root endpoint.</p>
+<h2 id="making-requests">Making requests</h2>
+<h3 id="http-verbs">HTTP verbs</h3>
+<p>As per RESTful design patterns, Business Objects API uses the following HTTP verbs that most clients are familiar with:</p>
+<ul>
+<li><code>GET</code> - Read resources</li>
+<li><code>POST</code> - Create new resources</li>
+<li><code>PUT</code> - Replace existing resources</li>
+<li><code>PATCH</code> - Update parts of resources</li>
+<li><code>DELETE</code> - Remove resources</li>
+</ul>
+<p><code>PATCH</code> is recommended as the preferred means of updating an entity.</p>
+<h3 id="request-format">Request Format</h3>
+<p>For <code>POST</code>, <code>PUT</code>, and <code>PATCH</code> requests, the request body is OData flavored JSON (the <code>Content-Type</code> header must be set to <code>application/json</code>).</p>
+<h3 id="response-format">Response Format</h3>
+<p>The default response format is OData flavored JSON (except where noted), encoded in the UTF-8 character encoding.</p>
+<h1 id="security">Security</h1>
+<p>Requests must be made over HTTPS. Any non-secure requests are met with a redirect to the HTTPS equivalent URI. Make sure that your application validates certificates.</p>
+<h2 id="authentication">Authentication</h2>
+<p>Only authenticated users are allowed to make API requests. So using the service requires a valid authentication of the Identity Provider App.</p>
+<p>See Identity Provider App documentation for a detailed overview about the authentication and authorization process, on how to get such authentication and how to implement it in your application.</p>
+<p>The <code>AuthSessionId</code> must be given to every request. This can be done in two ways:</p>
+<ul>
+<li>using the <code>Authorization</code> header with the <code>Bearer</code> scheme and a bearer token</li>
+<li>or via a cookie <code>AuthSessionID</code> that contains the session id</li>
+</ul>
+<p>Which variant should be used depends on your requirements. If Business Objects is accessed from a browser, the use of cookies is more advisable. For server-to-server communication, a bearer token is usually the preferred way.</p>
+<h3 id="bearer">Bearer</h3>
+<p>An authorization header containing a valid bearer token can be included in a request like follows:</p>
+<pre class="language-http"><code class="language-http"><span class="token header-name keyword">Authorization:</span> Bearer &lt;bearerToken></code></pre>
+<p>You must replace &lt;bearer_token&gt; with your personal bearer token. It is base64 encoded and usually looks something like <code>cF9/EIVw...</code>.</p>
+<blockquote>
+<p>warning: The bearer token is your key to accessing all of your resources. Always keep it secure.</p>
+</blockquote>
+<h3 id="cookie">Cookie</h3>
+<p>Cookies are handled automatically in the browser. If you still have to create and transfer the cookie manually, make sure that the <code>AuthSessionId</code> has to be URL-encoded.</p>
+<h2 id="altering-the-state-of-the-server">Altering the state of the server</h2>
+<p>In the case of HTTP methods that change the server-side state (<code>POST</code>, <code>PUT</code>, <code>PATCH</code>, and <code>DELETE</code>), the Origin header must be transferred and must match the target origin. Otherwise the request is rejected with the status code <code>403 Forbidden</code>. The Origin request header indicates where a fetch originates from and must be set as follows:</p>
+<pre class="language-http"><code class="language-http"><span class="token header-name keyword">Origin:</span> &lt;baseURI> </code></pre>
+<p>Set the <code>baseURI</code> variable to a valid value for your tenant. The format for this is: <code>https://&lt;tenantDomain&gt;.d-velop.cloud</code> (the header does not contain any path information).</p>
+<h2 id="application-roles">Application Roles</h2>
+<p>The following roles are used by Business Objects:</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">Role</th>
+<th style="text-align:left">Permissions</th>
+<th style="text-align:left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">Tenant Admin</td>
+<td style="text-align:left">All application permissions</td>
+<td style="text-align:left">Predefined administration role with tenant wide permissions</td>
+</tr>
+<tr>
+<td style="text-align:left">Model Admin</td>
+<td style="text-align:left">Read and write (create, update, read) custom models and permission configuration</td>
+<td style="text-align:left">Administration of the model configuration and the permission configuration</td>
+</tr>
+<tr>
+<td style="text-align:left">Data Writer</td>
+<td style="text-align:left">Write instance data (create, update, delete)</td>
+<td style="text-align:left">Usually, for technical users who need write access to the instance data</td>
+</tr>
+<tr>
+<td style="text-align:left">Data Reader</td>
+<td style="text-align:left">Read instance data</td>
+<td style="text-align:left">Typically assigned to technical users who need read access to the instance data</td>
+</tr>
+</tbody>
+</table>
+<h1 id="errors">Errors</h1>
+<p>If an error occurs, the response contains an HTTP status code and usually also a response body with an error code and a message. The error codes are machine-readable codes that allow clients to better understand the context of the error and respond appropriately. The message includes a user-friendly explanation of the error.</p>
+<p>Business Objects uses conventional HTTP status codes that most clients are familiar with to indicate the success or failure of an request:</p>
+<ul>
+<li><code>2xx</code> - Indicate success</li>
+<li><code>4xx</code> - Indicate failure, the cause of the failure resulted from the provided information and typically lies in responsibility of the client</li>
+<li><code>5xx</code> - Indicate errors that occurred on our servers</li>
+</ul>
+<h2 id="frequently-used-http-status-codes">Frequently used HTTP status codes</h2>
+<p>The following is a list of common HTTP status codes you see in response from the API and what they mean. Details on error handling for the individual resources can be found in the respective section.</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">HTTP Status Code</th>
+<th style="text-align:left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><code>200 OK</code></td>
+<td style="text-align:left">Everything worked as expected and the response body contains the representation requested.</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>201 Created</code></td>
+<td style="text-align:left">The request was successful, a new resource was created and the response body contains an unexpanded representation of the created resource. The location of the newly created resource can be found in the <code>Location</code> header.</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>204 No Content</code></td>
+<td style="text-align:left">Everything worked as expected and the response body is empty.</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>400 Bad Request</code></td>
+<td style="text-align:left">The request contains syntactic or semantic errors. The response body contains further error details that the client can use to troubleshoot the problem.</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>401 Unauthorized</code></td>
+<td style="text-align:left">The request couldn’t be authenticated.</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>403 Forbidden</code></td>
+<td style="text-align:left">The client doesn’t have permissions to perform the request.</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>404 Not Found</code></td>
+<td style="text-align:left">The requested resource could not be found.</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>409 Conflict</code></td>
+<td style="text-align:left">The requested operation on the resource cannot be performed due to the resource status.</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>413 Request Entity Too Large</code></td>
+<td style="text-align:left">The request body is larger than the defined limits.</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>414 URI Too Long</code></td>
+<td style="text-align:left">The URI requested is longer than the defined limits.</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>415 Unsupported Media Type</code></td>
+<td style="text-align:left">The request was rejected because the payload format is not supported.</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>429 Too Many Requests</code></td>
+<td style="text-align:left">Too many requests have been sent in a given amount of time.</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>431 Request Header Fields Too Large</code></td>
+<td style="text-align:left">The request’s HTTP headers are too long.</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>500 Internal Server Error</code></td>
+<td style="text-align:left">There was a technical problem with the API server.</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>501 Not Implemented</code></td>
+<td style="text-align:left">The functionality required to fulfill the request is not supported.</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>503 Service Unavailable</code></td>
+<td style="text-align:left">The connection is being throttled or the service is temporarily offline for maintenance.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="error-schema">Error Schema</h2>
+<h3 id="errorresponse">errorResponse</h3>
+<p>Represents an error response object.</p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Nullable</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>error</td>
+<td><a href="#errorcontainer">errorContainer</a></td>
+<td>false</td>
+<td>The actual error payload.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="errorcontainer">errorContainer</h3>
+<p>Represents an error container encompassing the error payload.</p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Nullable</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>code</td>
+<td>string</td>
+<td>false</td>
+<td>A service-defined error code.</td>
+</tr>
+<tr>
+<td>message</td>
+<td>string</td>
+<td>false</td>
+<td>A human-readable representation of the error.</td>
+</tr>
+<tr>
+<td>details</td>
+<td><a href="#errordetail">errorDetail[]</a></td>
+<td>true</td>
+<td>A collection of error details.</td>
+</tr>
+<tr>
+<td>innerError</td>
+<td><a href="#innererror">innerError</a></td>
+<td>true</td>
+<td>Debugging information to help determine the error cause.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="errordetail">errorDetail</h3>
+<p>Represents an error detail.</p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Nullable</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>code</td>
+<td>string</td>
+<td>false</td>
+<td>An error detail code defined by the service.</td>
+</tr>
+<tr>
+<td>message</td>
+<td>string</td>
+<td>false</td>
+<td>A human-readable representation of the error detail.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="innererror">innerError</h3>
+<p>Represents an error object with debugging information to help determine the error cause.</p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Nullable</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>timestamp</td>
+<td>string</td>
+<td>true</td>
+<td>The timestamp as the error occurred.</td>
+</tr>
+<tr>
+<td>requestId</td>
+<td>string</td>
+<td>true</td>
+<td>A randomly generated identifier that uniquely distinguishes each request and that can be used for correlation purposes.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="error-codes">Error codes</h2>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">Code</th>
+<th style="text-align:left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">contentTypeNotSupported</td>
+<td style="text-align:left">The given content type does not match a supported MIME type.</td>
+</tr>
+<tr>
+<td style="text-align:left">divisionByZero</td>
+<td style="text-align:left">A division by zero error occurred while executing the query.</td>
+</tr>
+<tr>
+<td style="text-align:left">entityAlreadyExists</td>
+<td style="text-align:left">The entity already exists.</td>
+</tr>
+<tr>
+<td style="text-align:left">entityNotFound</td>
+<td style="text-align:left">The requested entity could not be found.</td>
+</tr>
+<tr>
+<td style="text-align:left">entityUnknown</td>
+<td style="text-align:left">One or more of the specified entity keys are unknown.</td>
+</tr>
+<tr>
+<td style="text-align:left">featureForbidden</td>
+<td style="text-align:left">The specified feature is forbidden. The error message contains information about the forbidden feature.</td>
+</tr>
+<tr>
+<td style="text-align:left">featureNotImplemented</td>
+<td style="text-align:left">The specified feature is not implemented. The error message describes the functionality not implemented.</td>
+</tr>
+<tr>
+<td style="text-align:left">limitExceeded</td>
+<td style="text-align:left">A limit has been exceeded.</td>
+</tr>
+<tr>
+<td style="text-align:left">moduloByZero</td>
+<td style="text-align:left">A modulo by zero error occurred while executing the query.</td>
+</tr>
+<tr>
+<td style="text-align:left">notDeletable</td>
+<td style="text-align:left">The specified element is not deletable.</td>
+</tr>
+<tr>
+<td style="text-align:left">notInsertable</td>
+<td style="text-align:left">The specified element is not insertable.</td>
+</tr>
+<tr>
+<td style="text-align:left">notUpdatable</td>
+<td style="text-align:left">The specified element is not updatable.</td>
+</tr>
+<tr>
+<td style="text-align:left">queryMalformed</td>
+<td style="text-align:left">The query is either syntactically or semantically malformed.</td>
+</tr>
+<tr>
+<td style="text-align:left">requestEntityMalformed</td>
+<td style="text-align:left">The request body is either syntactically or semantically malformed.</td>
+</tr>
+<tr>
+<td style="text-align:left">resourceNotFound</td>
+<td style="text-align:left">The requested resource could not be found.</td>
+</tr>
+<tr>
+<td style="text-align:left">transitionInvalid</td>
+<td style="text-align:left">The specified transition is invalid.</td>
+</tr>
+<tr>
+<td style="text-align:left">writeConflict</td>
+<td style="text-align:left">There was a conflict while attempting to write the entity.</td>
+</tr>
+</tbody>
+</table>
+<p>Base URLs:</p>
+<ul>
+<li><a href="{baseURI}/businessobjects/core/models">{baseURI}/businessobjects/core/models</a></li>
+</ul>
+<p>Email: <a href="mailto:cloudmigration@d-velop.de">d.velop</a> Web: <a href="http://d-velop.de">d.velop</a></p>
+<h1 id="authentication-1">Authentication</h1>
+<ul>
+<li>HTTP Authentication, scheme: bearer</li>
+</ul>
+<ul>
+<li>API Key (CookieAuth)
+<ul>
+<li>Parameter Name: <strong>AuthSessionId</strong>, in: cookie.</li>
+</ul>
+</li>
+</ul>
+<h1 id="business-objects-api-guide-custommodels">customModels</h1>
+<h2 id="list-all-custom-models">List all custom models</h2>
+<p><a id="opIdGet custom models"></a></p>
+<blockquote>
+<p>Code samples</p>
+</blockquote>
+<p><code>GET /customModels</code></p>
+<p>Retrieves all custom models.</p>
+<blockquote>
+<p>Example responses</p>
+</blockquote>
+<blockquote>
+<p>200 Response</p>
+</blockquote>
+<pre class="language-json"><code class="language-json"><span class="token punctuation">{</span><br>  <span class="token property">"value"</span><span class="token operator">:</span> <span class="token punctuation">[</span><br>    <span class="token punctuation">{</span><br>      <span class="token property">"id"</span><span class="token operator">:</span> <span class="token string">"a2ba1abe-b708-43fe-bd59-c54c4940000f"</span><span class="token punctuation">,</span><br>      <span class="token property">"name"</span><span class="token operator">:</span> <span class="token string">"example1"</span><span class="token punctuation">,</span><br>      <span class="token property">"description"</span><span class="token operator">:</span> <span class="token string">"First example for the API documentation"</span><span class="token punctuation">,</span><br>      <span class="token property">"state"</span><span class="token operator">:</span> <span class="token string">"staged"</span><br>    <span class="token punctuation">}</span><span class="token punctuation">,</span><br>    <span class="token punctuation">{</span><br>      <span class="token property">"id"</span><span class="token operator">:</span> <span class="token string">"83e56be3-e1dd-4641-babc-54a8e358a928"</span><span class="token punctuation">,</span><br>      <span class="token property">"name"</span><span class="token operator">:</span> <span class="token string">"example2"</span><span class="token punctuation">,</span><br>      <span class="token property">"description"</span><span class="token operator">:</span> <span class="token string">"Second example for the API documentation"</span><span class="token punctuation">,</span><br>      <span class="token property">"state"</span><span class="token operator">:</span> <span class="token string">"published"</span><br>    <span class="token punctuation">}</span><br>  <span class="token punctuation">]</span><br><span class="token punctuation">}</span></code></pre>
+<h3 id="list-all-custom-models-responses">Responses</h3>
+<table>
+<thead>
+<tr>
+<th>Status</th>
+<th>Meaning</th>
+<th>Description</th>
+<th>Schema</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>200</td>
+<td><a href="https://tools.ietf.org/html/rfc7231#section-6.3.1">OK</a></td>
+<td>Retrieved custom models</td>
+<td>Inline</td>
+</tr>
+</tbody>
+</table>
+<h3 id="list-all-custom-models-responseschema">Response Schema</h3>
+<p>Status Code <strong>200</strong></p>
+<p><em>Collection of customModels</em></p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Required</th>
+<th>Restrictions</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>» value</td>
+<td>[<a href="#schemacustommodel">customModel</a>]</td>
+<td>false</td>
+<td>none</td>
+<td>[A user-defined data model, that arranges data elements and covers the relationship of these elements to one another and to entities of reality.]</td>
+</tr>
+<tr>
+<td>»» customModel</td>
+<td><a href="#schemacustommodel">customModel</a></td>
+<td>false</td>
+<td>none</td>
+<td>A user-defined data model, that arranges data elements and covers the relationship of these elements to one another and to entities of reality.</td>
+</tr>
+<tr>
+<td>»»» id</td>
+<td>string(uuid)</td>
+<td>true</td>
+<td>none</td>
+<td>The unique identifier of the custom model (generated by the service).</td>
+</tr>
+<tr>
+<td>»»» name</td>
+<td>string</td>
+<td>true</td>
+<td>none</td>
+<td>The name of the custom model. It serves as part of the service root URL under which the entities are available and must be unique.</td>
+</tr>
+<tr>
+<td>»»» state</td>
+<td><a href="#schemastatetype">stateType</a>¦null</td>
+<td>false</td>
+<td>none</td>
+<td>The current state of this custom model (default: initial).</td>
+</tr>
+<tr>
+<td>»»» description</td>
+<td>string¦null</td>
+<td>false</td>
+<td>none</td>
+<td>An arbitrary string attached to the custom model. Often useful for displaying it to users.</td>
+</tr>
+<tr>
+<td>»»» entityTypes</td>
+<td>[<a href="#schemaentitytype">entityType</a>]</td>
+<td>false</td>
+<td>none</td>
+<td>The entity types of the custom model.</td>
+</tr>
+<tr>
+<td>»»»» entityType</td>
+<td><a href="#schemaentitytype">entityType</a></td>
+<td>false</td>
+<td>none</td>
+<td>An entity is not determined by properties, but by an identity. For example, a person is usually represented as an entity.</td>
+</tr>
+<tr>
+<td>»»»»» id</td>
+<td>string(uuid)</td>
+<td>true</td>
+<td>none</td>
+<td>The unique identifier of the entity type (generated by the service).</td>
+</tr>
+<tr>
+<td>»»»»» name</td>
+<td>string</td>
+<td>true</td>
+<td>none</td>
+<td>The name of the entity type. It must be unique within the custom model.</td>
+</tr>
+<tr>
+<td>»»»»» pluralName</td>
+<td>string</td>
+<td>true</td>
+<td>none</td>
+<td>The plural name of the entity type. It serves as the entity set (resource) part of the URL under which the entities are available and must be unique within the custom model.</td>
+</tr>
+<tr>
+<td>»»»»» description</td>
+<td>string¦null</td>
+<td>false</td>
+<td>none</td>
+<td>An arbitrary string attached to the entity type. Often useful for displaying it to users.</td>
+</tr>
+<tr>
+<td>»»»»» state</td>
+<td><a href="#schemastatetype">stateType</a>¦null</td>
+<td>false</td>
+<td>none</td>
+<td>The current state of this entity type. It is derived from the state of the custom model. This property is read-only.</td>
+</tr>
+<tr>
+<td>»»»»» key</td>
+<td><a href="#schemakey">key</a></td>
+<td>true</td>
+<td>none</td>
+<td>A key property is a unique identifier for clear identification of an entity. In principle, identifiers can be used to identify any objects from products to people to abstract concepts.</td>
+</tr>
+<tr>
+<td>»»»»»» id</td>
+<td>string(uuid)</td>
+<td>true</td>
+<td>none</td>
+<td>The unique identifier of the key property (generated by the service).</td>
+</tr>
+<tr>
+<td>»»»»»» name</td>
+<td>string</td>
+<td>true</td>
+<td>none</td>
+<td>The name of the key property. Together with the name of all other properties, it must be unique within the entity type.</td>
+</tr>
+<tr>
+<td>»»»»»» type</td>
+<td><a href="#schemakeytype">keyType</a>¦null</td>
+<td>false</td>
+<td>none</td>
+<td>The type of the key property. It specifies the range of values for the key property and thus defines how an entity is uniquely identified.</td>
+</tr>
+<tr>
+<td>»»»»»» description</td>
+<td>string¦null</td>
+<td>false</td>
+<td>none</td>
+<td>An arbitrary string attached to the key property. Often useful for displaying it to users.</td>
+</tr>
+<tr>
+<td>»»»»»» state</td>
+<td><a href="#schemastatetype">stateType</a>¦null</td>
+<td>false</td>
+<td>none</td>
+<td>The current state of this key property. It is derived from the state of the custom model. This property is read-only.</td>
+</tr>
+<tr>
+<td>»»»»» properties</td>
+<td>[<a href="#schemaproperty">property</a>]</td>
+<td>false</td>
+<td>none</td>
+<td>The properties of the entity type.</td>
+</tr>
+<tr>
+<td>»»»»»» property</td>
+<td><a href="#schemaproperty">property</a></td>
+<td>false</td>
+<td>none</td>
+<td>Each entity type in a model has a set of properties. It is these properties that are typically of interest for the further use and processing of an entity.</td>
+</tr>
+<tr>
+<td>»»»»»»» id</td>
+<td>string(uuid)</td>
+<td>true</td>
+<td>none</td>
+<td>The unique identifier of the property (generated by the service).</td>
+</tr>
+<tr>
+<td>»»»»»»» name</td>
+<td>string</td>
+<td>true</td>
+<td>none</td>
+<td>The name of the property. Together with the name of the key property, it must be unique within the entity type.</td>
+</tr>
+<tr>
+<td>»»»»»»» required</td>
+<td>boolean¦null</td>
+<td>false</td>
+<td>none</td>
+<td>Determines whether the property is an required property.</td>
+</tr>
+<tr>
+<td>»»»»»»» indexed</td>
+<td>boolean¦null</td>
+<td>false</td>
+<td>none</td>
+<td>Determines whether the property is an indexed property.</td>
+</tr>
+<tr>
+<td>»»»»»»» type</td>
+<td><a href="#schemapropertytype">propertyType</a>¦null</td>
+<td>false</td>
+<td>none</td>
+<td>The type of the property. It determines the kind and range of values the property can store.</td>
+</tr>
+<tr>
+<td>»»»»»»» description</td>
+<td>string¦null</td>
+<td>false</td>
+<td>none</td>
+<td>An arbitrary string attached to the property. Often useful for displaying it to users.</td>
+</tr>
+<tr>
+<td>»»»»»»» state</td>
+<td><a href="#schemastatetype">stateType</a>¦null</td>
+<td>false</td>
+<td>none</td>
+<td>The current state of this property. It is derived from the state of the custom model. This property is read-only.</td>
+</tr>
+</tbody>
+</table>
+<h4 id="enumerated-values">Enumerated Values</h4>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>state</td>
+<td>initial</td>
+</tr>
+<tr>
+<td>state</td>
+<td>staged</td>
+</tr>
+<tr>
+<td>state</td>
+<td>published</td>
+</tr>
+<tr>
+<td>state</td>
+<td>initial</td>
+</tr>
+<tr>
+<td>state</td>
+<td>staged</td>
+</tr>
+<tr>
+<td>state</td>
+<td>published</td>
+</tr>
+<tr>
+<td>type</td>
+<td>guid</td>
+</tr>
+<tr>
+<td>type</td>
+<td>int32</td>
+</tr>
+<tr>
+<td>type</td>
+<td>int64</td>
+</tr>
+<tr>
+<td>type</td>
+<td>string</td>
+</tr>
+<tr>
+<td>state</td>
+<td>initial</td>
+</tr>
+<tr>
+<td>state</td>
+<td>staged</td>
+</tr>
+<tr>
+<td>state</td>
+<td>published</td>
+</tr>
+<tr>
+<td>type</td>
+<td>binary</td>
+</tr>
+<tr>
+<td>type</td>
+<td>boolean</td>
+</tr>
+<tr>
+<td>type</td>
+<td>byte</td>
+</tr>
+<tr>
+<td>type</td>
+<td>dateTimeOffset</td>
+</tr>
+<tr>
+<td>type</td>
+<td>decimal</td>
+</tr>
+<tr>
+<td>type</td>
+<td>double</td>
+</tr>
+<tr>
+<td>type</td>
+<td>guid</td>
+</tr>
+<tr>
+<td>type</td>
+<td>int16</td>
+</tr>
+<tr>
+<td>type</td>
+<td>int32</td>
+</tr>
+<tr>
+<td>type</td>
+<td>int64</td>
+</tr>
+<tr>
+<td>type</td>
+<td>sByte</td>
+</tr>
+<tr>
+<td>type</td>
+<td>single</td>
+</tr>
+<tr>
+<td>type</td>
+<td>string</td>
+</tr>
+<tr>
+<td>type</td>
+<td>date</td>
+</tr>
+<tr>
+<td>type</td>
+<td>list<string></td>
+</tr>
+<tr>
+<td>state</td>
+<td>initial</td>
+</tr>
+<tr>
+<td>state</td>
+<td>staged</td>
+</tr>
+<tr>
+<td>state</td>
+<td>published</td>
+</tr>
+</tbody>
+</table>
+<aside class="success">
+This operation does not require authentication
+</aside>
+<h2 id="create-a-new-custom-model">Create a new custom model</h2>
+<p><a id="opIdPost custom model"></a></p>
+<blockquote>
+<p>Code samples</p>
+</blockquote>
+<p><code>POST /customModels</code></p>
+<p>Creates a new custom model.</p>
+<blockquote>
+<p>Body parameter</p>
+</blockquote>
+<pre class="language-json"><code class="language-json"><span class="token punctuation">{</span><br>  <span class="token property">"name"</span><span class="token operator">:</span> <span class="token string">"example"</span><span class="token punctuation">,</span><br>  <span class="token property">"description"</span><span class="token operator">:</span> <span class="token string">"A sample service for Business Objects"</span><span class="token punctuation">,</span><br>  <span class="token property">"state"</span><span class="token operator">:</span> <span class="token string">"initial"</span><br><span class="token punctuation">}</span></code></pre>
+<h3 id="create-a-new-custom-model-parameters">Parameters</h3>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>In</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>body</td>
+<td>body</td>
+<td><a href="#schemacustommodel">customModel</a></td>
+<td>true</td>
+<td>The custom model to be created</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>Example responses</p>
+</blockquote>
+<blockquote>
+<p>201 Response</p>
+</blockquote>
+<pre class="language-json"><code class="language-json"><span class="token punctuation">{</span><br>  <span class="token property">"id"</span><span class="token operator">:</span> <span class="token string">"5d9aa2ef-397c-4bf1-b6ec-32e60bc3653e"</span><span class="token punctuation">,</span><br>  <span class="token property">"name"</span><span class="token operator">:</span> <span class="token string">"example"</span><span class="token punctuation">,</span><br>  <span class="token property">"description"</span><span class="token operator">:</span> <span class="token string">"A sample service for Business Objects"</span><span class="token punctuation">,</span><br>  <span class="token property">"state"</span><span class="token operator">:</span> <span class="token string">"initial"</span><br><span class="token punctuation">}</span></code></pre>
+<h3 id="create-a-new-custom-model-responses">Responses</h3>
+<table>
+<thead>
+<tr>
+<th>Status</th>
+<th>Meaning</th>
+<th>Description</th>
+<th>Schema</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>201</td>
+<td><a href="https://tools.ietf.org/html/rfc7231#section-6.3.2">Created</a></td>
+<td>Created custom model</td>
+<td><a href="#schemacustommodel">customModel</a></td>
+</tr>
+</tbody>
+</table>
+<aside class="success">
+This operation does not require authentication
+</aside>
+<h2 id="get-custom-model-details">Get custom model details</h2>
+<p><a id="opIdGet custom model"></a></p>
+<blockquote>
+<p>Code samples</p>
+</blockquote>
+<p><code>GET /customModels({cmId})</code></p>
+<p>Retrieves the information of the given custom model.</p>
+<h3 id="get-custom-model-details-parameters">Parameters</h3>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>In</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>cmId</td>
+<td>path</td>
+<td>string(uuid)</td>
+<td>true</td>
+<td>The unique identifier of the custom model.</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>Example responses</p>
+</blockquote>
+<blockquote>
+<p>200 Response</p>
+</blockquote>
+<pre class="language-json"><code class="language-json"><span class="token punctuation">{</span><br>  <span class="token property">"id"</span><span class="token operator">:</span> <span class="token string">"5d9aa2ef-397c-4bf1-b6ec-32e60bc3653e"</span><span class="token punctuation">,</span><br>  <span class="token property">"name"</span><span class="token operator">:</span> <span class="token string">"example"</span><span class="token punctuation">,</span><br>  <span class="token property">"description"</span><span class="token operator">:</span> <span class="token string">"A sample service for Business Objects"</span><span class="token punctuation">,</span><br>  <span class="token property">"state"</span><span class="token operator">:</span> <span class="token string">"initial"</span><br><span class="token punctuation">}</span></code></pre>
+<h3 id="get-custom-model-details-responses">Responses</h3>
+<table>
+<thead>
+<tr>
+<th>Status</th>
+<th>Meaning</th>
+<th>Description</th>
+<th>Schema</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>200</td>
+<td><a href="https://tools.ietf.org/html/rfc7231#section-6.3.1">OK</a></td>
+<td>Retrieved custom model</td>
+<td><a href="#schemacustommodel">customModel</a></td>
+</tr>
+</tbody>
+</table>
+<aside class="success">
+This operation does not require authentication
+</aside>
+<h2 id="partially-update-a-custom-model">Partially update a custom model</h2>
+<p><a id="opIdPatch custom model"></a></p>
+<blockquote>
+<p>Code samples</p>
+</blockquote>
+<p><code>PATCH /customModels({cmId})</code></p>
+<p>Updates an existing custom model partially.</p>
+<blockquote>
+<p>Body parameter</p>
+</blockquote>
+<pre class="language-json"><code class="language-json"><span class="token punctuation">{</span><br>  <span class="token property">"description"</span><span class="token operator">:</span> <span class="token string">"Partially updating a custom model for the API documentation"</span><br><span class="token punctuation">}</span></code></pre>
+<h3 id="partially-update-a-custom-model-parameters">Parameters</h3>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>In</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>cmId</td>
+<td>path</td>
+<td>string(uuid)</td>
+<td>true</td>
+<td>The unique identifier of the custom model.</td>
+</tr>
+<tr>
+<td>body</td>
+<td>body</td>
+<td><a href="#schemacustommodel">customModel</a></td>
+<td>true</td>
+<td>New custom model</td>
+</tr>
+</tbody>
+</table>
+<h3 id="partially-update-a-custom-model-responses">Responses</h3>
+<table>
+<thead>
+<tr>
+<th>Status</th>
+<th>Meaning</th>
+<th>Description</th>
+<th>Schema</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>204</td>
+<td><a href="https://tools.ietf.org/html/rfc7231#section-6.3.5">No Content</a></td>
+<td>Success</td>
+<td>None</td>
+</tr>
+</tbody>
+</table>
+<aside class="success">
+This operation does not require authentication
+</aside>
+<h2 id="replace-a-custom-model">Replace a custom model</h2>
+<p><a id="opIdPut custom model"></a></p>
+<blockquote>
+<p>Code samples</p>
+</blockquote>
+<p><code>PUT /customModels({cmId})</code></p>
+<p>Replaces an existing custom model.</p>
+<blockquote>
+<p>Body parameter</p>
+</blockquote>
+<pre class="language-json"><code class="language-json"><span class="token punctuation">{</span><br>  <span class="token property">"name"</span><span class="token operator">:</span> <span class="token string">"api_documentation_replaced"</span><span class="token punctuation">,</span><br>  <span class="token property">"description"</span><span class="token operator">:</span> <span class="token string">"Replacing a custom model for the API documentation"</span><br><span class="token punctuation">}</span></code></pre>
+<h3 id="replace-a-custom-model-parameters">Parameters</h3>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>In</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>cmId</td>
+<td>path</td>
+<td>string(uuid)</td>
+<td>true</td>
+<td>The unique identifier of the custom model.</td>
+</tr>
+<tr>
+<td>body</td>
+<td>body</td>
+<td><a href="#schemacustommodel">customModel</a></td>
+<td>true</td>
+<td>New custom model</td>
+</tr>
+</tbody>
+</table>
+<h3 id="replace-a-custom-model-responses">Responses</h3>
+<table>
+<thead>
+<tr>
+<th>Status</th>
+<th>Meaning</th>
+<th>Description</th>
+<th>Schema</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>204</td>
+<td><a href="https://tools.ietf.org/html/rfc7231#section-6.3.5">No Content</a></td>
+<td>Success</td>
+<td>None</td>
+</tr>
+</tbody>
+</table>
+<aside class="success">
+This operation does not require authentication
+</aside>
+<h2 id="delete-a-custom-model">Delete a custom model</h2>
+<p><a id="opIdDelete custom model"></a></p>
+<blockquote>
+<p>Code samples</p>
+</blockquote>
+<p><code>DELETE /customModels({cmId})</code></p>
+<p>Delete an existing custom model.</p>
+<h3 id="delete-a-custom-model-parameters">Parameters</h3>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>In</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>cmId</td>
+<td>path</td>
+<td>string(uuid)</td>
+<td>true</td>
+<td>The unique identifier of the custom model.</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>Example responses</p>
+</blockquote>
+<blockquote>
+<p>200 Response</p>
+</blockquote>
+<pre class="language-json"><code class="language-json"><span class="token punctuation">{</span><br>  <span class="token property">"id"</span><span class="token operator">:</span> <span class="token string">"5d9aa2ef-397c-4bf1-b6ec-32e60bc3653e"</span><span class="token punctuation">,</span><br>  <span class="token property">"name"</span><span class="token operator">:</span> <span class="token string">"example"</span><span class="token punctuation">,</span><br>  <span class="token property">"description"</span><span class="token operator">:</span> <span class="token string">"A sample service for Business Objects"</span><span class="token punctuation">,</span><br>  <span class="token property">"state"</span><span class="token operator">:</span> <span class="token string">"initial"</span><br><span class="token punctuation">}</span></code></pre>
+<h3 id="delete-a-custom-model-responses">Responses</h3>
+<table>
+<thead>
+<tr>
+<th>Status</th>
+<th>Meaning</th>
+<th>Description</th>
+<th>Schema</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>200</td>
+<td><a href="https://tools.ietf.org/html/rfc7231#section-6.3.1">OK</a></td>
+<td>Last known state of deleted custom model</td>
+<td><a href="#schemacustommodel">customModel</a></td>
+</tr>
+<tr>
+<td>204</td>
+<td><a href="https://tools.ietf.org/html/rfc7231#section-6.3.5">No Content</a></td>
+<td>Not found or already deleted</td>
+<td>None</td>
+</tr>
+</tbody>
+</table>
+<aside class="success">
+This operation does not require authentication
+</aside>
+<h1 id="business-objects-api-guide-entitytypes">entityTypes</h1>
+<h2 id="list-all-entity-types">List all entity types</h2>
+<p><a id="opIdGet entity types"></a></p>
+<blockquote>
+<p>Code samples</p>
+</blockquote>
+<p><code>GET /customModels({cmId})/entityTypes</code></p>
+<p>Retrieves all entity types.</p>
+<h3 id="list-all-entity-types-parameters">Parameters</h3>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>In</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>cmId</td>
+<td>path</td>
+<td>string(uuid)</td>
+<td>true</td>
+<td>The unique identifier of the custom model.</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>Example responses</p>
+</blockquote>
+<blockquote>
+<p>200 Response</p>
+</blockquote>
+<pre class="language-json"><code class="language-json"><span class="token punctuation">{</span><br>  <span class="token property">"value"</span><span class="token operator">:</span> <span class="token punctuation">[</span><br>    <span class="token punctuation">{</span><br>      <span class="token property">"id"</span><span class="token operator">:</span> <span class="token string">"c30c860b-ce22-4374-9796-cec16b6fedc6"</span><span class="token punctuation">,</span><br>      <span class="token property">"name"</span><span class="token operator">:</span> <span class="token string">"invoice"</span><span class="token punctuation">,</span><br>      <span class="token property">"pluralName"</span><span class="token operator">:</span> <span class="token string">"invoices"</span><span class="token punctuation">,</span><br>      <span class="token property">"key"</span><span class="token operator">:</span> <span class="token punctuation">{</span><br>        <span class="token property">"id"</span><span class="token operator">:</span> <span class="token string">"67593121-e653-4875-a83d-f7aa5b4074fc"</span><span class="token punctuation">,</span><br>        <span class="token property">"name"</span><span class="token operator">:</span> <span class="token string">"id"</span><span class="token punctuation">,</span><br>        <span class="token property">"type"</span><span class="token operator">:</span> <span class="token string">"guid"</span><br>      <span class="token punctuation">}</span><br>    <span class="token punctuation">}</span><span class="token punctuation">,</span><br>    <span class="token punctuation">{</span><br>      <span class="token property">"id"</span><span class="token operator">:</span> <span class="token string">"ed18e695-8ae4-4203-b0fd-529d1e25b5af"</span><span class="token punctuation">,</span><br>      <span class="token property">"name"</span><span class="token operator">:</span> <span class="token string">"product"</span><span class="token punctuation">,</span><br>      <span class="token property">"pluralName"</span><span class="token operator">:</span> <span class="token string">"products"</span><span class="token punctuation">,</span><br>      <span class="token property">"key"</span><span class="token operator">:</span> <span class="token punctuation">{</span><br>        <span class="token property">"id"</span><span class="token operator">:</span> <span class="token string">"fa49704f-9c09-47c6-8dcc-f4b2985317e0"</span><span class="token punctuation">,</span><br>        <span class="token property">"name"</span><span class="token operator">:</span> <span class="token string">"id"</span><span class="token punctuation">,</span><br>        <span class="token property">"type"</span><span class="token operator">:</span> <span class="token string">"guid"</span><br>      <span class="token punctuation">}</span><br>    <span class="token punctuation">}</span><br>  <span class="token punctuation">]</span><br><span class="token punctuation">}</span></code></pre>
+<h3 id="list-all-entity-types-responses">Responses</h3>
+<table>
+<thead>
+<tr>
+<th>Status</th>
+<th>Meaning</th>
+<th>Description</th>
+<th>Schema</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>200</td>
+<td><a href="https://tools.ietf.org/html/rfc7231#section-6.3.1">OK</a></td>
+<td>Retrieved entity types</td>
+<td>Inline</td>
+</tr>
+</tbody>
+</table>
+<h3 id="list-all-entity-types-responseschema">Response Schema</h3>
+<p>Status Code <strong>200</strong></p>
+<p><em>Collection of entityTypes</em></p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Required</th>
+<th>Restrictions</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>» value</td>
+<td>[<a href="#schemaentitytype">entityType</a>]</td>
+<td>false</td>
+<td>none</td>
+<td>[An entity is not determined by properties, but by an identity. For example, a person is usually represented as an entity.]</td>
+</tr>
+<tr>
+<td>»» entityType</td>
+<td><a href="#schemaentitytype">entityType</a></td>
+<td>false</td>
+<td>none</td>
+<td>An entity is not determined by properties, but by an identity. For example, a person is usually represented as an entity.</td>
+</tr>
+<tr>
+<td>»»» id</td>
+<td>string(uuid)</td>
+<td>true</td>
+<td>none</td>
+<td>The unique identifier of the entity type (generated by the service).</td>
+</tr>
+<tr>
+<td>»»» name</td>
+<td>string</td>
+<td>true</td>
+<td>none</td>
+<td>The name of the entity type. It must be unique within the custom model.</td>
+</tr>
+<tr>
+<td>»»» pluralName</td>
+<td>string</td>
+<td>true</td>
+<td>none</td>
+<td>The plural name of the entity type. It serves as the entity set (resource) part of the URL under which the entities are available and must be unique within the custom model.</td>
+</tr>
+<tr>
+<td>»»» description</td>
+<td>string¦null</td>
+<td>false</td>
+<td>none</td>
+<td>An arbitrary string attached to the entity type. Often useful for displaying it to users.</td>
+</tr>
+<tr>
+<td>»»» state</td>
+<td><a href="#schemastatetype">stateType</a>¦null</td>
+<td>false</td>
+<td>none</td>
+<td>The current state of this entity type. It is derived from the state of the custom model. This property is read-only.</td>
+</tr>
+<tr>
+<td>»»» key</td>
+<td><a href="#schemakey">key</a></td>
+<td>true</td>
+<td>none</td>
+<td>A key property is a unique identifier for clear identification of an entity. In principle, identifiers can be used to identify any objects from products to people to abstract concepts.</td>
+</tr>
+<tr>
+<td>»»»» id</td>
+<td>string(uuid)</td>
+<td>true</td>
+<td>none</td>
+<td>The unique identifier of the key property (generated by the service).</td>
+</tr>
+<tr>
+<td>»»»» name</td>
+<td>string</td>
+<td>true</td>
+<td>none</td>
+<td>The name of the key property. Together with the name of all other properties, it must be unique within the entity type.</td>
+</tr>
+<tr>
+<td>»»»» type</td>
+<td><a href="#schemakeytype">keyType</a>¦null</td>
+<td>false</td>
+<td>none</td>
+<td>The type of the key property. It specifies the range of values for the key property and thus defines how an entity is uniquely identified.</td>
+</tr>
+<tr>
+<td>»»»» description</td>
+<td>string¦null</td>
+<td>false</td>
+<td>none</td>
+<td>An arbitrary string attached to the key property. Often useful for displaying it to users.</td>
+</tr>
+<tr>
+<td>»»»» state</td>
+<td><a href="#schemastatetype">stateType</a>¦null</td>
+<td>false</td>
+<td>none</td>
+<td>The current state of this key property. It is derived from the state of the custom model. This property is read-only.</td>
+</tr>
+<tr>
+<td>»»» properties</td>
+<td>[<a href="#schemaproperty">property</a>]</td>
+<td>false</td>
+<td>none</td>
+<td>The properties of the entity type.</td>
+</tr>
+<tr>
+<td>»»»» property</td>
+<td><a href="#schemaproperty">property</a></td>
+<td>false</td>
+<td>none</td>
+<td>Each entity type in a model has a set of properties. It is these properties that are typically of interest for the further use and processing of an entity.</td>
+</tr>
+<tr>
+<td>»»»»» id</td>
+<td>string(uuid)</td>
+<td>true</td>
+<td>none</td>
+<td>The unique identifier of the property (generated by the service).</td>
+</tr>
+<tr>
+<td>»»»»» name</td>
+<td>string</td>
+<td>true</td>
+<td>none</td>
+<td>The name of the property. Together with the name of the key property, it must be unique within the entity type.</td>
+</tr>
+<tr>
+<td>»»»»» required</td>
+<td>boolean¦null</td>
+<td>false</td>
+<td>none</td>
+<td>Determines whether the property is an required property.</td>
+</tr>
+<tr>
+<td>»»»»» indexed</td>
+<td>boolean¦null</td>
+<td>false</td>
+<td>none</td>
+<td>Determines whether the property is an indexed property.</td>
+</tr>
+<tr>
+<td>»»»»» type</td>
+<td><a href="#schemapropertytype">propertyType</a>¦null</td>
+<td>false</td>
+<td>none</td>
+<td>The type of the property. It determines the kind and range of values the property can store.</td>
+</tr>
+<tr>
+<td>»»»»» description</td>
+<td>string¦null</td>
+<td>false</td>
+<td>none</td>
+<td>An arbitrary string attached to the property. Often useful for displaying it to users.</td>
+</tr>
+<tr>
+<td>»»»»» state</td>
+<td><a href="#schemastatetype">stateType</a>¦null</td>
+<td>false</td>
+<td>none</td>
+<td>The current state of this property. It is derived from the state of the custom model. This property is read-only.</td>
+</tr>
+</tbody>
+</table>
+<h4 id="enumerated-values-1">Enumerated Values</h4>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>state</td>
+<td>initial</td>
+</tr>
+<tr>
+<td>state</td>
+<td>staged</td>
+</tr>
+<tr>
+<td>state</td>
+<td>published</td>
+</tr>
+<tr>
+<td>type</td>
+<td>guid</td>
+</tr>
+<tr>
+<td>type</td>
+<td>int32</td>
+</tr>
+<tr>
+<td>type</td>
+<td>int64</td>
+</tr>
+<tr>
+<td>type</td>
+<td>string</td>
+</tr>
+<tr>
+<td>state</td>
+<td>initial</td>
+</tr>
+<tr>
+<td>state</td>
+<td>staged</td>
+</tr>
+<tr>
+<td>state</td>
+<td>published</td>
+</tr>
+<tr>
+<td>type</td>
+<td>binary</td>
+</tr>
+<tr>
+<td>type</td>
+<td>boolean</td>
+</tr>
+<tr>
+<td>type</td>
+<td>byte</td>
+</tr>
+<tr>
+<td>type</td>
+<td>dateTimeOffset</td>
+</tr>
+<tr>
+<td>type</td>
+<td>decimal</td>
+</tr>
+<tr>
+<td>type</td>
+<td>double</td>
+</tr>
+<tr>
+<td>type</td>
+<td>guid</td>
+</tr>
+<tr>
+<td>type</td>
+<td>int16</td>
+</tr>
+<tr>
+<td>type</td>
+<td>int32</td>
+</tr>
+<tr>
+<td>type</td>
+<td>int64</td>
+</tr>
+<tr>
+<td>type</td>
+<td>sByte</td>
+</tr>
+<tr>
+<td>type</td>
+<td>single</td>
+</tr>
+<tr>
+<td>type</td>
+<td>string</td>
+</tr>
+<tr>
+<td>type</td>
+<td>date</td>
+</tr>
+<tr>
+<td>type</td>
+<td>list<string></td>
+</tr>
+<tr>
+<td>state</td>
+<td>initial</td>
+</tr>
+<tr>
+<td>state</td>
+<td>staged</td>
+</tr>
+<tr>
+<td>state</td>
+<td>published</td>
+</tr>
+</tbody>
+</table>
+<aside class="success">
+This operation does not require authentication
+</aside>
+<h2 id="create-a-new-entity-type">Create a new entity type</h2>
+<p><a id="opIdPost entity type"></a></p>
+<blockquote>
+<p>Code samples</p>
+</blockquote>
+<p><code>POST /customModels({cmId})/entityTypes</code></p>
+<p>Creates a new entity type.</p>
+<blockquote>
+<p>Body parameter</p>
+</blockquote>
+<pre class="language-json"><code class="language-json"><span class="token punctuation">{</span><br>  <span class="token property">"name"</span><span class="token operator">:</span> <span class="token string">"customer"</span><span class="token punctuation">,</span><br>  <span class="token property">"pluralName"</span><span class="token operator">:</span> <span class="token string">"customers"</span><span class="token punctuation">,</span><br>  <span class="token property">"key"</span><span class="token operator">:</span> <span class="token punctuation">{</span><br>    <span class="token property">"name"</span><span class="token operator">:</span> <span class="token string">"id"</span><span class="token punctuation">,</span><br>    <span class="token property">"type"</span><span class="token operator">:</span> <span class="token string">"guid"</span><span class="token punctuation">,</span><br>    <span class="token property">"description"</span><span class="token operator">:</span> <span class="token string">"Unique identifier of the customer"</span><br>  <span class="token punctuation">}</span><span class="token punctuation">,</span><br>  <span class="token property">"description"</span><span class="token operator">:</span> <span class="token string">"A simple customer schema as an example for the API documentation"</span><br><span class="token punctuation">}</span></code></pre>
+<h3 id="create-a-new-entity-type-parameters">Parameters</h3>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>In</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>cmId</td>
+<td>path</td>
+<td>string(uuid)</td>
+<td>true</td>
+<td>The unique identifier of the custom model.</td>
+</tr>
+<tr>
+<td>body</td>
+<td>body</td>
+<td><a href="#schemaentitytype">entityType</a></td>
+<td>true</td>
+<td>The entity type to be created</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>Example responses</p>
+</blockquote>
+<blockquote>
+<p>201 Response</p>
+</blockquote>
+<pre class="language-json"><code class="language-json"><span class="token punctuation">{</span><br>  <span class="token property">"name"</span><span class="token operator">:</span> <span class="token string">"customer"</span><span class="token punctuation">,</span><br>  <span class="token property">"pluralName"</span><span class="token operator">:</span> <span class="token string">"customers"</span><span class="token punctuation">,</span><br>  <span class="token property">"description"</span><span class="token operator">:</span> <span class="token string">"A simple customer schema as an example for the API documentation"</span><br><span class="token punctuation">}</span></code></pre>
+<h3 id="create-a-new-entity-type-responses">Responses</h3>
+<table>
+<thead>
+<tr>
+<th>Status</th>
+<th>Meaning</th>
+<th>Description</th>
+<th>Schema</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>201</td>
+<td><a href="https://tools.ietf.org/html/rfc7231#section-6.3.2">Created</a></td>
+<td>Created entity type</td>
+<td><a href="#schemaentitytype">entityType</a></td>
+</tr>
+</tbody>
+</table>
+<aside class="success">
+This operation does not require authentication
+</aside>
+<h2 id="get-entity-type-details">Get entity type details</h2>
+<p><a id="opIdGet entity type"></a></p>
+<blockquote>
+<p>Code samples</p>
+</blockquote>
+<p><code>GET /customModels({cmId})/entityTypes({etId})</code></p>
+<p>Retrieves the information of the given entity type.</p>
+<h3 id="get-entity-type-details-parameters">Parameters</h3>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>In</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>cmId</td>
+<td>path</td>
+<td>string(uuid)</td>
+<td>true</td>
+<td>The unique identifier of the custom model.</td>
+</tr>
+<tr>
+<td>etId</td>
+<td>path</td>
+<td>string(uuid)</td>
+<td>true</td>
+<td>The unique identifier of the entity type.</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>Example responses</p>
+</blockquote>
+<blockquote>
+<p>200 Response</p>
+</blockquote>
+<pre class="language-json"><code class="language-json"><span class="token punctuation">{</span><br>  <span class="token property">"id"</span><span class="token operator">:</span> <span class="token string">"8de50cbc-3693-4406-ad1b-feda454230e2"</span><span class="token punctuation">,</span><br>  <span class="token property">"name"</span><span class="token operator">:</span> <span class="token string">"customer"</span><span class="token punctuation">,</span><br>  <span class="token property">"pluralName"</span><span class="token operator">:</span> <span class="token string">"customers"</span><span class="token punctuation">,</span><br>  <span class="token property">"description"</span><span class="token operator">:</span> <span class="token string">"A simple customer schema as an example for the API documentation"</span><br><span class="token punctuation">}</span></code></pre>
+<h3 id="get-entity-type-details-responses">Responses</h3>
+<table>
+<thead>
+<tr>
+<th>Status</th>
+<th>Meaning</th>
+<th>Description</th>
+<th>Schema</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>200</td>
+<td><a href="https://tools.ietf.org/html/rfc7231#section-6.3.1">OK</a></td>
+<td>Retrieved entity type</td>
+<td><a href="#schemaentitytype">entityType</a></td>
+</tr>
+</tbody>
+</table>
+<aside class="success">
+This operation does not require authentication
+</aside>
+<h2 id="partially-update-a-entity-type">Partially update a entity type</h2>
+<p><a id="opIdPatch entity type"></a></p>
+<blockquote>
+<p>Code samples</p>
+</blockquote>
+<p><code>PATCH /customModels({cmId})/entityTypes({etId})</code></p>
+<p>Updates an existing entity type partially.</p>
+<blockquote>
+<p>Body parameter</p>
+</blockquote>
+<pre class="language-json"><code class="language-json"><span class="token punctuation">{</span><br>  <span class="token property">"description"</span><span class="token operator">:</span> <span class="token string">"Partially updating an entity type for the API documentation"</span><br><span class="token punctuation">}</span></code></pre>
+<h3 id="partially-update-a-entity-type-parameters">Parameters</h3>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>In</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>cmId</td>
+<td>path</td>
+<td>string(uuid)</td>
+<td>true</td>
+<td>The unique identifier of the custom model.</td>
+</tr>
+<tr>
+<td>etId</td>
+<td>path</td>
+<td>string(uuid)</td>
+<td>true</td>
+<td>The unique identifier of the entity type.</td>
+</tr>
+<tr>
+<td>body</td>
+<td>body</td>
+<td><a href="#schemaentitytype">entityType</a></td>
+<td>true</td>
+<td>New entity type</td>
+</tr>
+</tbody>
+</table>
+<h3 id="partially-update-a-entity-type-responses">Responses</h3>
+<table>
+<thead>
+<tr>
+<th>Status</th>
+<th>Meaning</th>
+<th>Description</th>
+<th>Schema</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>204</td>
+<td><a href="https://tools.ietf.org/html/rfc7231#section-6.3.5">No Content</a></td>
+<td>Success</td>
+<td>None</td>
+</tr>
+</tbody>
+</table>
+<aside class="success">
+This operation does not require authentication
+</aside>
+<h2 id="replace-a-entity-type">Replace a entity type</h2>
+<p><a id="opIdPut entity type"></a></p>
+<blockquote>
+<p>Code samples</p>
+</blockquote>
+<p><code>PUT /customModels({cmId})/entityTypes({etId})</code></p>
+<p>Replaces an existing entity type.</p>
+<blockquote>
+<p>Body parameter</p>
+</blockquote>
+<pre class="language-json"><code class="language-json"><span class="token punctuation">{</span><br>  <span class="token property">"name"</span><span class="token operator">:</span> <span class="token string">"TestCustomer"</span><span class="token punctuation">,</span><br>  <span class="token property">"pluralName"</span><span class="token operator">:</span> <span class="token string">"TestCustomers"</span><span class="token punctuation">,</span><br>  <span class="token property">"description"</span><span class="token operator">:</span> <span class="token string">"Replacing an entity type for the API documentation"</span><br><span class="token punctuation">}</span></code></pre>
+<h3 id="replace-a-entity-type-parameters">Parameters</h3>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>In</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>cmId</td>
+<td>path</td>
+<td>string(uuid)</td>
+<td>true</td>
+<td>The unique identifier of the custom model.</td>
+</tr>
+<tr>
+<td>etId</td>
+<td>path</td>
+<td>string(uuid)</td>
+<td>true</td>
+<td>The unique identifier of the entity type.</td>
+</tr>
+<tr>
+<td>body</td>
+<td>body</td>
+<td><a href="#schemaentitytype">entityType</a></td>
+<td>true</td>
+<td>New entity type</td>
+</tr>
+</tbody>
+</table>
+<h3 id="replace-a-entity-type-responses">Responses</h3>
+<table>
+<thead>
+<tr>
+<th>Status</th>
+<th>Meaning</th>
+<th>Description</th>
+<th>Schema</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>204</td>
+<td><a href="https://tools.ietf.org/html/rfc7231#section-6.3.5">No Content</a></td>
+<td>Success</td>
+<td>None</td>
+</tr>
+</tbody>
+</table>
+<aside class="success">
+This operation does not require authentication
+</aside>
+<h2 id="delete-a-entity-type">Delete a entity type</h2>
+<p><a id="opIdDelete entity type"></a></p>
+<blockquote>
+<p>Code samples</p>
+</blockquote>
+<p><code>DELETE /customModels({cmId})/entityTypes({etId})</code></p>
+<p>Delete an existing entity type.</p>
+<h3 id="delete-a-entity-type-parameters">Parameters</h3>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>In</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>cmId</td>
+<td>path</td>
+<td>string(uuid)</td>
+<td>true</td>
+<td>The unique identifier of the custom model.</td>
+</tr>
+<tr>
+<td>etId</td>
+<td>path</td>
+<td>string(uuid)</td>
+<td>true</td>
+<td>The unique identifier of the entity type.</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>Example responses</p>
+</blockquote>
+<blockquote>
+<p>200 Response</p>
+</blockquote>
+<pre class="language-json"><code class="language-json"><span class="token punctuation">{</span><br>  <span class="token property">"name"</span><span class="token operator">:</span> <span class="token string">"customer"</span><span class="token punctuation">,</span><br>  <span class="token property">"pluralName"</span><span class="token operator">:</span> <span class="token string">"customers"</span><span class="token punctuation">,</span><br>  <span class="token property">"description"</span><span class="token operator">:</span> <span class="token string">"A simple customer schema as an example for the API documentation"</span><br><span class="token punctuation">}</span></code></pre>
+<h3 id="delete-a-entity-type-responses">Responses</h3>
+<table>
+<thead>
+<tr>
+<th>Status</th>
+<th>Meaning</th>
+<th>Description</th>
+<th>Schema</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>200</td>
+<td><a href="https://tools.ietf.org/html/rfc7231#section-6.3.1">OK</a></td>
+<td>Last known state of deleted entity type</td>
+<td><a href="#schemaentitytype">entityType</a></td>
+</tr>
+<tr>
+<td>204</td>
+<td><a href="https://tools.ietf.org/html/rfc7231#section-6.3.5">No Content</a></td>
+<td>Not found or already deleted</td>
+<td>None</td>
+</tr>
+</tbody>
+</table>
+<aside class="success">
+This operation does not require authentication
+</aside>
+<h1 id="business-objects-api-guide-properties">properties</h1>
+<h2 id="list-all-properties">List all properties</h2>
+<p><a id="opIdGet properties"></a></p>
+<blockquote>
+<p>Code samples</p>
+</blockquote>
+<p><code>GET /customModels({cmId})/entityTypes({etId})/properties</code></p>
+<p>Retrieves all properties.</p>
+<h3 id="list-all-properties-parameters">Parameters</h3>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>In</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>cmId</td>
+<td>path</td>
+<td>string(uuid)</td>
+<td>true</td>
+<td>The unique identifier of the custom model.</td>
+</tr>
+<tr>
+<td>etId</td>
+<td>path</td>
+<td>string(uuid)</td>
+<td>true</td>
+<td>The unique identifier of the entity type.</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>Example responses</p>
+</blockquote>
+<blockquote>
+<p>200 Response</p>
+</blockquote>
+<pre class="language-json"><code class="language-json"><span class="token punctuation">{</span><br>  <span class="token property">"value"</span><span class="token operator">:</span> <span class="token punctuation">[</span><br>    <span class="token punctuation">{</span><br>      <span class="token property">"id"</span><span class="token operator">:</span> <span class="token string">"1ce177c2-ae1f-491a-9d32-0bd865d69bca"</span><span class="token punctuation">,</span><br>      <span class="token property">"name"</span><span class="token operator">:</span> <span class="token string">"rating"</span><span class="token punctuation">,</span><br>      <span class="token property">"type"</span><span class="token operator">:</span> <span class="token string">"decimal"</span><br>    <span class="token punctuation">}</span><span class="token punctuation">,</span><br>    <span class="token punctuation">{</span><br>      <span class="token property">"id"</span><span class="token operator">:</span> <span class="token string">"9a4e688a-6cdf-4fed-ae82-9ecf54f410a3"</span><span class="token punctuation">,</span><br>      <span class="token property">"name"</span><span class="token operator">:</span> <span class="token string">"code"</span><span class="token punctuation">,</span><br>      <span class="token property">"type"</span><span class="token operator">:</span> <span class="token string">"int16"</span><br>    <span class="token punctuation">}</span><br>  <span class="token punctuation">]</span><br><span class="token punctuation">}</span></code></pre>
+<h3 id="list-all-properties-responses">Responses</h3>
+<table>
+<thead>
+<tr>
+<th>Status</th>
+<th>Meaning</th>
+<th>Description</th>
+<th>Schema</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>200</td>
+<td><a href="https://tools.ietf.org/html/rfc7231#section-6.3.1">OK</a></td>
+<td>Retrieved properties</td>
+<td>Inline</td>
+</tr>
+</tbody>
+</table>
+<h3 id="list-all-properties-responseschema">Response Schema</h3>
+<p>Status Code <strong>200</strong></p>
+<p><em>Collection of properties</em></p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Required</th>
+<th>Restrictions</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>» value</td>
+<td>[<a href="#schemaproperty">property</a>]</td>
+<td>false</td>
+<td>none</td>
+<td>[Each entity type in a model has a set of properties. It is these properties that are typically of interest for the further use and processing of an entity.]</td>
+</tr>
+<tr>
+<td>»» property</td>
+<td><a href="#schemaproperty">property</a></td>
+<td>false</td>
+<td>none</td>
+<td>Each entity type in a model has a set of properties. It is these properties that are typically of interest for the further use and processing of an entity.</td>
+</tr>
+<tr>
+<td>»»» id</td>
+<td>string(uuid)</td>
+<td>true</td>
+<td>none</td>
+<td>The unique identifier of the property (generated by the service).</td>
+</tr>
+<tr>
+<td>»»» name</td>
+<td>string</td>
+<td>true</td>
+<td>none</td>
+<td>The name of the property. Together with the name of the key property, it must be unique within the entity type.</td>
+</tr>
+<tr>
+<td>»»» required</td>
+<td>boolean¦null</td>
+<td>false</td>
+<td>none</td>
+<td>Determines whether the property is an required property.</td>
+</tr>
+<tr>
+<td>»»» indexed</td>
+<td>boolean¦null</td>
+<td>false</td>
+<td>none</td>
+<td>Determines whether the property is an indexed property.</td>
+</tr>
+<tr>
+<td>»»» type</td>
+<td><a href="#schemapropertytype">propertyType</a>¦null</td>
+<td>false</td>
+<td>none</td>
+<td>The type of the property. It determines the kind and range of values the property can store.</td>
+</tr>
+<tr>
+<td>»»» description</td>
+<td>string¦null</td>
+<td>false</td>
+<td>none</td>
+<td>An arbitrary string attached to the property. Often useful for displaying it to users.</td>
+</tr>
+<tr>
+<td>»»» state</td>
+<td><a href="#schemastatetype">stateType</a>¦null</td>
+<td>false</td>
+<td>none</td>
+<td>The current state of this property. It is derived from the state of the custom model. This property is read-only.</td>
+</tr>
+</tbody>
+</table>
+<h4 id="enumerated-values-2">Enumerated Values</h4>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>type</td>
+<td>binary</td>
+</tr>
+<tr>
+<td>type</td>
+<td>boolean</td>
+</tr>
+<tr>
+<td>type</td>
+<td>byte</td>
+</tr>
+<tr>
+<td>type</td>
+<td>dateTimeOffset</td>
+</tr>
+<tr>
+<td>type</td>
+<td>decimal</td>
+</tr>
+<tr>
+<td>type</td>
+<td>double</td>
+</tr>
+<tr>
+<td>type</td>
+<td>guid</td>
+</tr>
+<tr>
+<td>type</td>
+<td>int16</td>
+</tr>
+<tr>
+<td>type</td>
+<td>int32</td>
+</tr>
+<tr>
+<td>type</td>
+<td>int64</td>
+</tr>
+<tr>
+<td>type</td>
+<td>sByte</td>
+</tr>
+<tr>
+<td>type</td>
+<td>single</td>
+</tr>
+<tr>
+<td>type</td>
+<td>string</td>
+</tr>
+<tr>
+<td>type</td>
+<td>date</td>
+</tr>
+<tr>
+<td>type</td>
+<td>list<string></td>
+</tr>
+<tr>
+<td>state</td>
+<td>initial</td>
+</tr>
+<tr>
+<td>state</td>
+<td>staged</td>
+</tr>
+<tr>
+<td>state</td>
+<td>published</td>
+</tr>
+</tbody>
+</table>
+<aside class="success">
+This operation does not require authentication
+</aside>
+<h2 id="create-a-new-property">Create a new property</h2>
+<p><a id="opIdPost property"></a></p>
+<blockquote>
+<p>Code samples</p>
+</blockquote>
+<p><code>POST /customModels({cmId})/entityTypes({etId})/properties</code></p>
+<p>Creates a new property.</p>
+<blockquote>
+<p>Body parameter</p>
+</blockquote>
+<pre class="language-json"><code class="language-json"><span class="token punctuation">{</span><br>  <span class="token property">"name"</span><span class="token operator">:</span> <span class="token string">"name"</span><span class="token punctuation">,</span><br>  <span class="token property">"type"</span><span class="token operator">:</span> <span class="token string">"string"</span><span class="token punctuation">,</span><br>  <span class="token property">"description"</span><span class="token operator">:</span> <span class="token string">"Name of the customer"</span><br><span class="token punctuation">}</span></code></pre>
+<h3 id="create-a-new-property-parameters">Parameters</h3>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>In</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>cmId</td>
+<td>path</td>
+<td>string(uuid)</td>
+<td>true</td>
+<td>The unique identifier of the custom model.</td>
+</tr>
+<tr>
+<td>etId</td>
+<td>path</td>
+<td>string(uuid)</td>
+<td>true</td>
+<td>The unique identifier of the entity type.</td>
+</tr>
+<tr>
+<td>body</td>
+<td>body</td>
+<td><a href="#schemaproperty">property</a></td>
+<td>true</td>
+<td>The property to be created</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>Example responses</p>
+</blockquote>
+<blockquote>
+<p>201 Response</p>
+</blockquote>
+<pre class="language-json"><code class="language-json"><span class="token punctuation">{</span><br>  <span class="token property">"id"</span><span class="token operator">:</span> <span class="token string">"20936473-f703-45b0-9305-be5066c94f15"</span><span class="token punctuation">,</span><br>  <span class="token property">"name"</span><span class="token operator">:</span> <span class="token string">"name"</span><span class="token punctuation">,</span><br>  <span class="token property">"type"</span><span class="token operator">:</span> <span class="token string">"string"</span><span class="token punctuation">,</span><br>  <span class="token property">"description"</span><span class="token operator">:</span> <span class="token string">"Name of the customer"</span><br><span class="token punctuation">}</span></code></pre>
+<h3 id="create-a-new-property-responses">Responses</h3>
+<table>
+<thead>
+<tr>
+<th>Status</th>
+<th>Meaning</th>
+<th>Description</th>
+<th>Schema</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>201</td>
+<td><a href="https://tools.ietf.org/html/rfc7231#section-6.3.2">Created</a></td>
+<td>Created property</td>
+<td><a href="#schemaproperty">property</a></td>
+</tr>
+</tbody>
+</table>
+<aside class="success">
+This operation does not require authentication
+</aside>
+<h2 id="get-property-details">Get property details</h2>
+<p><a id="opIdGet property"></a></p>
+<blockquote>
+<p>Code samples</p>
+</blockquote>
+<p><code>GET /customModels({cmId})/entityTypes({etId})/properties({pId})</code></p>
+<p>Retrieves the information of the given property.</p>
+<h3 id="get-property-details-parameters">Parameters</h3>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>In</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>cmId</td>
+<td>path</td>
+<td>string(uuid)</td>
+<td>true</td>
+<td>The unique identifier of the custom model.</td>
+</tr>
+<tr>
+<td>etId</td>
+<td>path</td>
+<td>string(uuid)</td>
+<td>true</td>
+<td>The unique identifier of the entity type.</td>
+</tr>
+<tr>
+<td>pId</td>
+<td>path</td>
+<td>string(uuid)</td>
+<td>true</td>
+<td>The unique identifier of the property.</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>Example responses</p>
+</blockquote>
+<blockquote>
+<p>200 Response</p>
+</blockquote>
+<pre class="language-json"><code class="language-json"><span class="token punctuation">{</span><br>  <span class="token property">"id"</span><span class="token operator">:</span> <span class="token string">"20936473-f703-45b0-9305-be5066c94f15"</span><span class="token punctuation">,</span><br>  <span class="token property">"name"</span><span class="token operator">:</span> <span class="token string">"name"</span><span class="token punctuation">,</span><br>  <span class="token property">"type"</span><span class="token operator">:</span> <span class="token string">"string"</span><span class="token punctuation">,</span><br>  <span class="token property">"description"</span><span class="token operator">:</span> <span class="token string">"Name of the customer"</span><br><span class="token punctuation">}</span></code></pre>
+<h3 id="get-property-details-responses">Responses</h3>
+<table>
+<thead>
+<tr>
+<th>Status</th>
+<th>Meaning</th>
+<th>Description</th>
+<th>Schema</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>200</td>
+<td><a href="https://tools.ietf.org/html/rfc7231#section-6.3.1">OK</a></td>
+<td>Retrieved property</td>
+<td><a href="#schemaproperty">property</a></td>
+</tr>
+</tbody>
+</table>
+<aside class="success">
+This operation does not require authentication
+</aside>
+<h2 id="partially-update-a-property">Partially update a property</h2>
+<p><a id="opIdPatch property"></a></p>
+<blockquote>
+<p>Code samples</p>
+</blockquote>
+<p><code>PATCH /customModels({cmId})/entityTypes({etId})/properties({pId})</code></p>
+<p>Updates an existing property partially.</p>
+<blockquote>
+<p>Body parameter</p>
+</blockquote>
+<pre class="language-json"><code class="language-json"><span class="token punctuation">{</span><br>  <span class="token property">"description"</span><span class="token operator">:</span> <span class="token string">"Partially updating a property type for the API documentation"</span><br><span class="token punctuation">}</span></code></pre>
+<h3 id="partially-update-a-property-parameters">Parameters</h3>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>In</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>cmId</td>
+<td>path</td>
+<td>string(uuid)</td>
+<td>true</td>
+<td>The unique identifier of the custom model.</td>
+</tr>
+<tr>
+<td>etId</td>
+<td>path</td>
+<td>string(uuid)</td>
+<td>true</td>
+<td>The unique identifier of the entity type.</td>
+</tr>
+<tr>
+<td>pId</td>
+<td>path</td>
+<td>string(uuid)</td>
+<td>true</td>
+<td>The unique identifier of the property.</td>
+</tr>
+<tr>
+<td>body</td>
+<td>body</td>
+<td><a href="#schemaproperty">property</a></td>
+<td>true</td>
+<td>New property</td>
+</tr>
+</tbody>
+</table>
+<h3 id="partially-update-a-property-responses">Responses</h3>
+<table>
+<thead>
+<tr>
+<th>Status</th>
+<th>Meaning</th>
+<th>Description</th>
+<th>Schema</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>204</td>
+<td><a href="https://tools.ietf.org/html/rfc7231#section-6.3.5">No Content</a></td>
+<td>Success</td>
+<td>None</td>
+</tr>
+</tbody>
+</table>
+<aside class="success">
+This operation does not require authentication
+</aside>
+<h2 id="replace-a-property">Replace a property</h2>
+<p><a id="opIdPut property"></a></p>
+<blockquote>
+<p>Code samples</p>
+</blockquote>
+<p><code>PUT /customModels({cmId})/entityTypes({etId})/properties({pId})</code></p>
+<p>Replaces an existing property.</p>
+<blockquote>
+<p>Body parameter</p>
+</blockquote>
+<pre class="language-json"><code class="language-json"><span class="token punctuation">{</span><br>  <span class="token property">"name"</span><span class="token operator">:</span> <span class="token string">"TestName"</span><span class="token punctuation">,</span><br>  <span class="token property">"type"</span><span class="token operator">:</span> <span class="token string">"string"</span><span class="token punctuation">,</span><br>  <span class="token property">"description"</span><span class="token operator">:</span> <span class="token string">"Replacing a property for the API documentation"</span><br><span class="token punctuation">}</span></code></pre>
+<h3 id="replace-a-property-parameters">Parameters</h3>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>In</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>cmId</td>
+<td>path</td>
+<td>string(uuid)</td>
+<td>true</td>
+<td>The unique identifier of the custom model.</td>
+</tr>
+<tr>
+<td>etId</td>
+<td>path</td>
+<td>string(uuid)</td>
+<td>true</td>
+<td>The unique identifier of the entity type.</td>
+</tr>
+<tr>
+<td>pId</td>
+<td>path</td>
+<td>string(uuid)</td>
+<td>true</td>
+<td>The unique identifier of the property.</td>
+</tr>
+<tr>
+<td>body</td>
+<td>body</td>
+<td><a href="#schemaproperty">property</a></td>
+<td>true</td>
+<td>New property</td>
+</tr>
+</tbody>
+</table>
+<h3 id="replace-a-property-responses">Responses</h3>
+<table>
+<thead>
+<tr>
+<th>Status</th>
+<th>Meaning</th>
+<th>Description</th>
+<th>Schema</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>204</td>
+<td><a href="https://tools.ietf.org/html/rfc7231#section-6.3.5">No Content</a></td>
+<td>Success</td>
+<td>None</td>
+</tr>
+</tbody>
+</table>
+<aside class="success">
+This operation does not require authentication
+</aside>
+<h2 id="delete-a-property">Delete a property</h2>
+<p><a id="opIdDelete property"></a></p>
+<blockquote>
+<p>Code samples</p>
+</blockquote>
+<p><code>DELETE /customModels({cmId})/entityTypes({etId})/properties({pId})</code></p>
+<p>Delete an existing property.</p>
+<h3 id="delete-a-property-parameters">Parameters</h3>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>In</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>cmId</td>
+<td>path</td>
+<td>string(uuid)</td>
+<td>true</td>
+<td>The unique identifier of the custom model.</td>
+</tr>
+<tr>
+<td>etId</td>
+<td>path</td>
+<td>string(uuid)</td>
+<td>true</td>
+<td>The unique identifier of the entity type.</td>
+</tr>
+<tr>
+<td>pId</td>
+<td>path</td>
+<td>string(uuid)</td>
+<td>true</td>
+<td>The unique identifier of the property.</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>Example responses</p>
+</blockquote>
+<blockquote>
+<p>200 Response</p>
+</blockquote>
+<pre class="language-json"><code class="language-json"><span class="token punctuation">{</span><br>  <span class="token property">"id"</span><span class="token operator">:</span> <span class="token string">"20936473-f703-45b0-9305-be5066c94f15"</span><span class="token punctuation">,</span><br>  <span class="token property">"name"</span><span class="token operator">:</span> <span class="token string">"name"</span><span class="token punctuation">,</span><br>  <span class="token property">"type"</span><span class="token operator">:</span> <span class="token string">"string"</span><span class="token punctuation">,</span><br>  <span class="token property">"description"</span><span class="token operator">:</span> <span class="token string">"Name of the customer"</span><br><span class="token punctuation">}</span></code></pre>
+<h3 id="delete-a-property-responses">Responses</h3>
+<table>
+<thead>
+<tr>
+<th>Status</th>
+<th>Meaning</th>
+<th>Description</th>
+<th>Schema</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>200</td>
+<td><a href="https://tools.ietf.org/html/rfc7231#section-6.3.1">OK</a></td>
+<td>Last known state of deleted property</td>
+<td><a href="#schemaproperty">property</a></td>
+</tr>
+<tr>
+<td>204</td>
+<td><a href="https://tools.ietf.org/html/rfc7231#section-6.3.5">No Content</a></td>
+<td>Not found or already deleted</td>
+<td>None</td>
+</tr>
+</tbody>
+</table>
+<aside class="success">
+This operation does not require authentication
+</aside>
+<h1 id="schemas">Schemas</h1>
+<h2 id="tocS_customModel">customModel</h2>
+<p><a id="schemacustommodel"></a>
+<a id="schema_customModel"></a>
+<a id="tocScustommodel"></a>
+<a id="tocscustommodel"></a></p>
+<pre class="language-json"><code class="language-json"><span class="token punctuation">{</span><br>  <span class="token property">"id"</span><span class="token operator">:</span> <span class="token string">"497f6eca-6276-4993-bfeb-53cbbbba6f08"</span><span class="token punctuation">,</span><br>  <span class="token property">"name"</span><span class="token operator">:</span> <span class="token string">"string"</span><span class="token punctuation">,</span><br>  <span class="token property">"state"</span><span class="token operator">:</span> <span class="token string">"initial"</span><span class="token punctuation">,</span><br>  <span class="token property">"description"</span><span class="token operator">:</span> <span class="token string">"string"</span><span class="token punctuation">,</span><br>  <span class="token property">"entityTypes"</span><span class="token operator">:</span> <span class="token punctuation">[</span><br>    <span class="token punctuation">{</span><br>      <span class="token property">"id"</span><span class="token operator">:</span> <span class="token string">"497f6eca-6276-4993-bfeb-53cbbbba6f08"</span><span class="token punctuation">,</span><br>      <span class="token property">"name"</span><span class="token operator">:</span> <span class="token string">"string"</span><span class="token punctuation">,</span><br>      <span class="token property">"pluralName"</span><span class="token operator">:</span> <span class="token string">"string"</span><span class="token punctuation">,</span><br>      <span class="token property">"description"</span><span class="token operator">:</span> <span class="token string">"string"</span><span class="token punctuation">,</span><br>      <span class="token property">"state"</span><span class="token operator">:</span> <span class="token string">"initial"</span><span class="token punctuation">,</span><br>      <span class="token property">"key"</span><span class="token operator">:</span> <span class="token punctuation">{</span><br>        <span class="token property">"id"</span><span class="token operator">:</span> <span class="token string">"497f6eca-6276-4993-bfeb-53cbbbba6f08"</span><span class="token punctuation">,</span><br>        <span class="token property">"name"</span><span class="token operator">:</span> <span class="token string">"string"</span><span class="token punctuation">,</span><br>        <span class="token property">"type"</span><span class="token operator">:</span> <span class="token string">"["</span><span class="token punctuation">,</span><br>        <span class="token property">"description"</span><span class="token operator">:</span> <span class="token string">"string"</span><span class="token punctuation">,</span><br>        <span class="token property">"state"</span><span class="token operator">:</span> <span class="token string">"["</span><br>      <span class="token punctuation">}</span><span class="token punctuation">,</span><br>      <span class="token property">"properties"</span><span class="token operator">:</span> <span class="token punctuation">[</span><br>        <span class="token punctuation">{</span><br>          <span class="token property">"id"</span><span class="token operator">:</span> <span class="token string">"497f6eca-6276-4993-bfeb-53cbbbba6f08"</span><span class="token punctuation">,</span><br>          <span class="token property">"name"</span><span class="token operator">:</span> <span class="token string">"string"</span><span class="token punctuation">,</span><br>          <span class="token property">"required"</span><span class="token operator">:</span> <span class="token boolean">false</span><span class="token punctuation">,</span><br>          <span class="token property">"indexed"</span><span class="token operator">:</span> <span class="token boolean">false</span><span class="token punctuation">,</span><br>          <span class="token property">"type"</span><span class="token operator">:</span> <span class="token null keyword">null</span><span class="token punctuation">,</span><br>          <span class="token property">"description"</span><span class="token operator">:</span> <span class="token string">"string"</span><span class="token punctuation">,</span><br>          <span class="token property">"state"</span><span class="token operator">:</span> <span class="token null keyword">null</span><br>        <span class="token punctuation">}</span><br>      <span class="token punctuation">]</span><br>    <span class="token punctuation">}</span><br>  <span class="token punctuation">]</span><br><span class="token punctuation">}</span><br></code></pre>
+<p>customModel</p>
+<h3 id="properties">Properties</h3>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Required</th>
+<th>Restrictions</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>id</td>
+<td>string(uuid)</td>
+<td>true</td>
+<td>none</td>
+<td>The unique identifier of the custom model (generated by the service).</td>
+</tr>
+<tr>
+<td>name</td>
+<td>string</td>
+<td>true</td>
+<td>none</td>
+<td>The name of the custom model. It serves as part of the service root URL under which the entities are available and must be unique.</td>
+</tr>
+<tr>
+<td>state</td>
+<td><a href="#schemastatetype">stateType</a>¦null</td>
+<td>false</td>
+<td>none</td>
+<td>The current state of this custom model (default: initial).</td>
+</tr>
+<tr>
+<td>description</td>
+<td>string¦null</td>
+<td>false</td>
+<td>none</td>
+<td>An arbitrary string attached to the custom model. Often useful for displaying it to users.</td>
+</tr>
+<tr>
+<td>entityTypes</td>
+<td>[<a href="#schemaentitytype">entityType</a>]</td>
+<td>false</td>
+<td>none</td>
+<td>The entity types of the custom model.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="tocS_entityType">entityType</h2>
+<p><a id="schemaentitytype"></a>
+<a id="schema_entityType"></a>
+<a id="tocSentitytype"></a>
+<a id="tocsentitytype"></a></p>
+<pre class="language-json"><code class="language-json"><span class="token punctuation">{</span><br>  <span class="token property">"id"</span><span class="token operator">:</span> <span class="token string">"497f6eca-6276-4993-bfeb-53cbbbba6f08"</span><span class="token punctuation">,</span><br>  <span class="token property">"name"</span><span class="token operator">:</span> <span class="token string">"string"</span><span class="token punctuation">,</span><br>  <span class="token property">"pluralName"</span><span class="token operator">:</span> <span class="token string">"string"</span><span class="token punctuation">,</span><br>  <span class="token property">"description"</span><span class="token operator">:</span> <span class="token string">"string"</span><span class="token punctuation">,</span><br>  <span class="token property">"state"</span><span class="token operator">:</span> <span class="token string">"initial"</span><span class="token punctuation">,</span><br>  <span class="token property">"key"</span><span class="token operator">:</span> <span class="token punctuation">{</span><br>    <span class="token property">"id"</span><span class="token operator">:</span> <span class="token string">"497f6eca-6276-4993-bfeb-53cbbbba6f08"</span><span class="token punctuation">,</span><br>    <span class="token property">"name"</span><span class="token operator">:</span> <span class="token string">"string"</span><span class="token punctuation">,</span><br>    <span class="token property">"type"</span><span class="token operator">:</span> <span class="token string">"guid"</span><span class="token punctuation">,</span><br>    <span class="token property">"description"</span><span class="token operator">:</span> <span class="token string">"string"</span><span class="token punctuation">,</span><br>    <span class="token property">"state"</span><span class="token operator">:</span> <span class="token string">"initial"</span><br>  <span class="token punctuation">}</span><span class="token punctuation">,</span><br>  <span class="token property">"properties"</span><span class="token operator">:</span> <span class="token punctuation">[</span><br>    <span class="token punctuation">{</span><br>      <span class="token property">"id"</span><span class="token operator">:</span> <span class="token string">"497f6eca-6276-4993-bfeb-53cbbbba6f08"</span><span class="token punctuation">,</span><br>      <span class="token property">"name"</span><span class="token operator">:</span> <span class="token string">"string"</span><span class="token punctuation">,</span><br>      <span class="token property">"required"</span><span class="token operator">:</span> <span class="token boolean">false</span><span class="token punctuation">,</span><br>      <span class="token property">"indexed"</span><span class="token operator">:</span> <span class="token boolean">false</span><span class="token punctuation">,</span><br>      <span class="token property">"type"</span><span class="token operator">:</span> <span class="token string">"binary"</span><span class="token punctuation">,</span><br>      <span class="token property">"description"</span><span class="token operator">:</span> <span class="token string">"string"</span><span class="token punctuation">,</span><br>      <span class="token property">"state"</span><span class="token operator">:</span> <span class="token string">"initial"</span><br>    <span class="token punctuation">}</span><br>  <span class="token punctuation">]</span><br><span class="token punctuation">}</span><br></code></pre>
+<p>entityType</p>
+<h3 id="properties-1">Properties</h3>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Required</th>
+<th>Restrictions</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>id</td>
+<td>string(uuid)</td>
+<td>true</td>
+<td>none</td>
+<td>The unique identifier of the entity type (generated by the service).</td>
+</tr>
+<tr>
+<td>name</td>
+<td>string</td>
+<td>true</td>
+<td>none</td>
+<td>The name of the entity type. It must be unique within the custom model.</td>
+</tr>
+<tr>
+<td>pluralName</td>
+<td>string</td>
+<td>true</td>
+<td>none</td>
+<td>The plural name of the entity type. It serves as the entity set (resource) part of the URL under which the entities are available and must be unique within the custom model.</td>
+</tr>
+<tr>
+<td>description</td>
+<td>string¦null</td>
+<td>false</td>
+<td>none</td>
+<td>An arbitrary string attached to the entity type. Often useful for displaying it to users.</td>
+</tr>
+<tr>
+<td>state</td>
+<td><a href="#schemastatetype">stateType</a>¦null</td>
+<td>false</td>
+<td>none</td>
+<td>The current state of this entity type. It is derived from the state of the custom model. This property is read-only.</td>
+</tr>
+<tr>
+<td>key</td>
+<td><a href="#schemakey">key</a></td>
+<td>true</td>
+<td>none</td>
+<td>A key property is a unique identifier for clear identification of an entity. In principle, identifiers can be used to identify any objects from products to people to abstract concepts.</td>
+</tr>
+<tr>
+<td>properties</td>
+<td>[<a href="#schemaproperty">property</a>]</td>
+<td>false</td>
+<td>none</td>
+<td>The properties of the entity type.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="tocS_key">key</h2>
+<p><a id="schemakey"></a>
+<a id="schema_key"></a>
+<a id="tocSkey"></a>
+<a id="tocskey"></a></p>
+<pre class="language-json"><code class="language-json"><span class="token punctuation">{</span><br>  <span class="token property">"id"</span><span class="token operator">:</span> <span class="token string">"497f6eca-6276-4993-bfeb-53cbbbba6f08"</span><span class="token punctuation">,</span><br>  <span class="token property">"name"</span><span class="token operator">:</span> <span class="token string">"string"</span><span class="token punctuation">,</span><br>  <span class="token property">"type"</span><span class="token operator">:</span> <span class="token string">"guid"</span><span class="token punctuation">,</span><br>  <span class="token property">"description"</span><span class="token operator">:</span> <span class="token string">"string"</span><span class="token punctuation">,</span><br>  <span class="token property">"state"</span><span class="token operator">:</span> <span class="token string">"initial"</span><br><span class="token punctuation">}</span><br></code></pre>
+<p>key</p>
+<h3 id="properties-2">Properties</h3>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Required</th>
+<th>Restrictions</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>id</td>
+<td>string(uuid)</td>
+<td>true</td>
+<td>none</td>
+<td>The unique identifier of the key property (generated by the service).</td>
+</tr>
+<tr>
+<td>name</td>
+<td>string</td>
+<td>true</td>
+<td>none</td>
+<td>The name of the key property. Together with the name of all other properties, it must be unique within the entity type.</td>
+</tr>
+<tr>
+<td>type</td>
+<td><a href="#schemakeytype">keyType</a>¦null</td>
+<td>false</td>
+<td>none</td>
+<td>The type of the key property. It specifies the range of values for the key property and thus defines how an entity is uniquely identified.</td>
+</tr>
+<tr>
+<td>description</td>
+<td>string¦null</td>
+<td>false</td>
+<td>none</td>
+<td>An arbitrary string attached to the key property. Often useful for displaying it to users.</td>
+</tr>
+<tr>
+<td>state</td>
+<td><a href="#schemastatetype">stateType</a>¦null</td>
+<td>false</td>
+<td>none</td>
+<td>The current state of this key property. It is derived from the state of the custom model. This property is read-only.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="tocS_property">property</h2>
+<p><a id="schemaproperty"></a>
+<a id="schema_property"></a>
+<a id="tocSproperty"></a>
+<a id="tocsproperty"></a></p>
+<pre class="language-json"><code class="language-json"><span class="token punctuation">{</span><br>  <span class="token property">"id"</span><span class="token operator">:</span> <span class="token string">"497f6eca-6276-4993-bfeb-53cbbbba6f08"</span><span class="token punctuation">,</span><br>  <span class="token property">"name"</span><span class="token operator">:</span> <span class="token string">"string"</span><span class="token punctuation">,</span><br>  <span class="token property">"required"</span><span class="token operator">:</span> <span class="token boolean">false</span><span class="token punctuation">,</span><br>  <span class="token property">"indexed"</span><span class="token operator">:</span> <span class="token boolean">false</span><span class="token punctuation">,</span><br>  <span class="token property">"type"</span><span class="token operator">:</span> <span class="token string">"binary"</span><span class="token punctuation">,</span><br>  <span class="token property">"description"</span><span class="token operator">:</span> <span class="token string">"string"</span><span class="token punctuation">,</span><br>  <span class="token property">"state"</span><span class="token operator">:</span> <span class="token string">"initial"</span><br><span class="token punctuation">}</span><br></code></pre>
+<p>property</p>
+<h3 id="properties-3">Properties</h3>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Required</th>
+<th>Restrictions</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>id</td>
+<td>string(uuid)</td>
+<td>true</td>
+<td>none</td>
+<td>The unique identifier of the property (generated by the service).</td>
+</tr>
+<tr>
+<td>name</td>
+<td>string</td>
+<td>true</td>
+<td>none</td>
+<td>The name of the property. Together with the name of the key property, it must be unique within the entity type.</td>
+</tr>
+<tr>
+<td>required</td>
+<td>boolean¦null</td>
+<td>false</td>
+<td>none</td>
+<td>Determines whether the property is an required property.</td>
+</tr>
+<tr>
+<td>indexed</td>
+<td>boolean¦null</td>
+<td>false</td>
+<td>none</td>
+<td>Determines whether the property is an indexed property.</td>
+</tr>
+<tr>
+<td>type</td>
+<td><a href="#schemapropertytype">propertyType</a>¦null</td>
+<td>false</td>
+<td>none</td>
+<td>The type of the property. It determines the kind and range of values the property can store.</td>
+</tr>
+<tr>
+<td>description</td>
+<td>string¦null</td>
+<td>false</td>
+<td>none</td>
+<td>An arbitrary string attached to the property. Often useful for displaying it to users.</td>
+</tr>
+<tr>
+<td>state</td>
+<td><a href="#schemastatetype">stateType</a>¦null</td>
+<td>false</td>
+<td>none</td>
+<td>The current state of this property. It is derived from the state of the custom model. This property is read-only.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="tocS_keyType">keyType</h2>
+<p><a id="schemakeytype"></a>
+<a id="schema_keyType"></a>
+<a id="tocSkeytype"></a>
+<a id="tocskeytype"></a></p>
+<pre class="language-json"><code class="language-json"><span class="token string">"guid"</span><br></code></pre>
+<p>keyType</p>
+<h3 id="properties-4">Properties</h3>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Required</th>
+<th>Restrictions</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>keyType</td>
+<td>string</td>
+<td>false</td>
+<td>none</td>
+<td>An enumeration type that contains the values that specify the key type.</td>
+</tr>
+</tbody>
+</table>
+<h4 id="enumerated-values-3">Enumerated Values</h4>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>keyType</td>
+<td>guid</td>
+</tr>
+<tr>
+<td>keyType</td>
+<td>int32</td>
+</tr>
+<tr>
+<td>keyType</td>
+<td>int64</td>
+</tr>
+<tr>
+<td>keyType</td>
+<td>string</td>
+</tr>
+</tbody>
+</table>
+<h2 id="tocS_propertyType">propertyType</h2>
+<p><a id="schemapropertytype"></a>
+<a id="schema_propertyType"></a>
+<a id="tocSpropertytype"></a>
+<a id="tocspropertytype"></a></p>
+<pre class="language-json"><code class="language-json"><span class="token string">"binary"</span><br></code></pre>
+<p>propertyType</p>
+<h3 id="properties-5">Properties</h3>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Required</th>
+<th>Restrictions</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>propertyType</td>
+<td>string</td>
+<td>false</td>
+<td>none</td>
+<td>An enumeration type that contains the values that specify a property type.</td>
+</tr>
+</tbody>
+</table>
+<h4 id="enumerated-values-4">Enumerated Values</h4>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>propertyType</td>
+<td>binary</td>
+</tr>
+<tr>
+<td>propertyType</td>
+<td>boolean</td>
+</tr>
+<tr>
+<td>propertyType</td>
+<td>byte</td>
+</tr>
+<tr>
+<td>propertyType</td>
+<td>dateTimeOffset</td>
+</tr>
+<tr>
+<td>propertyType</td>
+<td>decimal</td>
+</tr>
+<tr>
+<td>propertyType</td>
+<td>double</td>
+</tr>
+<tr>
+<td>propertyType</td>
+<td>guid</td>
+</tr>
+<tr>
+<td>propertyType</td>
+<td>int16</td>
+</tr>
+<tr>
+<td>propertyType</td>
+<td>int32</td>
+</tr>
+<tr>
+<td>propertyType</td>
+<td>int64</td>
+</tr>
+<tr>
+<td>propertyType</td>
+<td>sByte</td>
+</tr>
+<tr>
+<td>propertyType</td>
+<td>single</td>
+</tr>
+<tr>
+<td>propertyType</td>
+<td>string</td>
+</tr>
+<tr>
+<td>propertyType</td>
+<td>date</td>
+</tr>
+<tr>
+<td>propertyType</td>
+<td>list<string></td>
+</tr>
+</tbody>
+</table>
+<h2 id="tocS_stateType">stateType</h2>
+<p><a id="schemastatetype"></a>
+<a id="schema_stateType"></a>
+<a id="tocSstatetype"></a>
+<a id="tocsstatetype"></a></p>
+<pre class="language-json"><code class="language-json"><span class="token string">"initial"</span><br></code></pre>
+<p>stateType</p>
+<h3 id="properties-6">Properties</h3>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Required</th>
+<th>Restrictions</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>stateType</td>
+<td>string</td>
+<td>false</td>
+<td>none</td>
+<td>An enumeration type that contains the values of different states that a state aware model element can have.</td>
+</tr>
+</tbody>
+</table>
+<h4 id="enumerated-values-5">Enumerated Values</h4>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>stateType</td>
+<td>initial</td>
+</tr>
+<tr>
+<td>stateType</td>
+<td>staged</td>
+</tr>
+<tr>
+<td>stateType</td>
+<td>published</td>
+</tr>
+</tbody>
+</table>
+<h2 id="tocS_common/error/errorResponse">common/error/errorResponse</h2>
+<p><a id="schemacommon/error/errorresponse"></a>
+<a id="schema_common/error/errorResponse"></a>
+<a id="tocScommon/error/errorresponse"></a>
+<a id="tocscommon/error/errorresponse"></a></p>
+<pre class="language-json"><code class="language-json"><span class="token punctuation">{</span><br>  <span class="token property">"error"</span><span class="token operator">:</span> <span class="token null keyword">null</span><br><span class="token punctuation">}</span><br></code></pre>
+<p>errorResponse</p>
+<h3 id="properties-7">Properties</h3>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Required</th>
+<th>Restrictions</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>error</td>
+<td><a href="#schemacommon/error/errorcontainer">common/error/errorContainer</a></td>
+<td>true</td>
+<td>none</td>
+<td>The actual error payload.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="tocS_common/error/errorContainer">common/error/errorContainer</h2>
+<p><a id="schemacommon/error/errorcontainer"></a>
+<a id="schema_common/error/errorContainer"></a>
+<a id="tocScommon/error/errorcontainer"></a>
+<a id="tocscommon/error/errorcontainer"></a></p>
+<pre class="language-json"><code class="language-json"><span class="token punctuation">{</span><br>  <span class="token property">"code"</span><span class="token operator">:</span> <span class="token string">"string"</span><span class="token punctuation">,</span><br>  <span class="token property">"message"</span><span class="token operator">:</span> <span class="token string">"string"</span><span class="token punctuation">,</span><br>  <span class="token property">"details"</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">,</span><br>  <span class="token property">"innerError"</span><span class="token operator">:</span> <span class="token null keyword">null</span><br><span class="token punctuation">}</span><br></code></pre>
+<p>errorContainer</p>
+<h3 id="properties-8">Properties</h3>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Required</th>
+<th>Restrictions</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>code</td>
+<td>string</td>
+<td>true</td>
+<td>none</td>
+<td>A service-defined error code.</td>
+</tr>
+<tr>
+<td>message</td>
+<td>string</td>
+<td>true</td>
+<td>none</td>
+<td>A human-readable representation of the error.</td>
+</tr>
+<tr>
+<td>details</td>
+<td>[<a href="#schemacommon/error/errordetail">common/error/errorDetail</a>]¦null</td>
+<td>false</td>
+<td>none</td>
+<td>A collection of error details.</td>
+</tr>
+<tr>
+<td>innerError</td>
+<td><a href="#schemacommon/error/innererror">common/error/innerError</a>¦null</td>
+<td>false</td>
+<td>none</td>
+<td>Debugging information to help determine the error cause.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="tocS_common/error/errorDetail">common/error/errorDetail</h2>
+<p><a id="schemacommon/error/errordetail"></a>
+<a id="schema_common/error/errorDetail"></a>
+<a id="tocScommon/error/errordetail"></a>
+<a id="tocscommon/error/errordetail"></a></p>
+<pre class="language-json"><code class="language-json"><span class="token punctuation">{</span><br>  <span class="token property">"code"</span><span class="token operator">:</span> <span class="token string">"string"</span><span class="token punctuation">,</span><br>  <span class="token property">"message"</span><span class="token operator">:</span> <span class="token string">"string"</span><br><span class="token punctuation">}</span><br></code></pre>
+<p>errorDetail</p>
+<h3 id="properties-9">Properties</h3>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Required</th>
+<th>Restrictions</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>code</td>
+<td>string</td>
+<td>true</td>
+<td>none</td>
+<td>An error detail code defined by the service.</td>
+</tr>
+<tr>
+<td>message</td>
+<td>string</td>
+<td>true</td>
+<td>none</td>
+<td>A human-readable representation of the error detail.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="tocS_common/error/innerError">common/error/innerError</h2>
+<p><a id="schemacommon/error/innererror"></a>
+<a id="schema_common/error/innerError"></a>
+<a id="tocScommon/error/innererror"></a>
+<a id="tocscommon/error/innererror"></a></p>
+<pre class="language-json"><code class="language-json"><span class="token punctuation">{</span><br>  <span class="token property">"timestamp"</span><span class="token operator">:</span> <span class="token string">"2019-08-24T14:15:22Z"</span><span class="token punctuation">,</span><br>  <span class="token property">"requestId"</span><span class="token operator">:</span> <span class="token string">"string"</span><br><span class="token punctuation">}</span><br></code></pre>
+<p>innerError</p>
+<h3 id="properties-10">Properties</h3>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Required</th>
+<th>Restrictions</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>timestamp</td>
+<td>string(date-time)¦null</td>
+<td>false</td>
+<td>none</td>
+<td>The timestamp as the error occurred.</td>
+</tr>
+<tr>
+<td>requestId</td>
+<td>string¦null</td>
+<td>false</td>
+<td>none</td>
+<td>A randomly generated identifier that uniquely distinguishes each request and that can be used for correlation purposes.</td>
+</tr>
+</tbody>
+</table>
+
+      </div>
+      <div class="dark-box">
+        
+          <div class="lang-selector">
+            
+              
+                <a href="#" data-language-name="&#39;ruby">Ruby&#39;</a>
+              
+            
+              
+                <a href="#" data-language-name="&#39;python">Python&#39;</a>
+              
+            
+          </div>
+        
+      </div>
+    </div>
+  </body>
+</html>

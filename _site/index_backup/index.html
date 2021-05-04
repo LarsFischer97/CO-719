@@ -1,0 +1,114 @@
+<h1 id="introduction">Introduction</h1>
+<p>Welcome to the Kittn API! You can use our API to access Kittn API endpoints, which can get information on various cats, kittens, and breeds in our database.</p>
+<p>We have language bindings in Shell, Ruby, Python, and JavaScript! You can view code examples in the dark area to the right, and you can switch the programming language of the examples with the tabs in the top right.</p>
+<p>This example API documentation page was created with <a href="https://github.com/slatedocs/slate">Slate</a>. Feel free to edit it and use it as a base for your own API’s documentation.</p>
+<h1 id="authentication">Authentication</h1>
+<blockquote>
+<p>To authorize, use this code:</p>
+</blockquote>
+<pre class="language-ruby"><code class="language-ruby"><span class="token keyword">require</span> <span class="token string">'kittn'</span><br><br>api <span class="token operator">=</span> <span class="token constant">Kittn</span><span class="token punctuation">:</span><span class="token punctuation">:</span><span class="token constant">APIClient</span><span class="token punctuation">.</span>authorize<span class="token operator">!</span><span class="token punctuation">(</span><span class="token string">'meowmeowmeow'</span><span class="token punctuation">)</span></code></pre>
+<pre class="language-python"><code class="language-python"><span class="token keyword">import</span> kittn<br><br>api <span class="token operator">=</span> kittn<span class="token punctuation">.</span>authorize<span class="token punctuation">(</span><span class="token string">'meowmeowmeow'</span><span class="token punctuation">)</span></code></pre>
+<pre class="language-shell"><code class="language-shell"><span class="token comment"># With shell, you can just pass the correct header with each request</span><br><span class="token function">curl</span> <span class="token string">"api_endpoint_here"</span><br>  -H <span class="token string">"Authorization: meowmeowmeow"</span></code></pre>
+<pre class="language-javascript"><code class="language-javascript"><span class="token keyword">const</span> kittn <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">'kittn'</span><span class="token punctuation">)</span><span class="token punctuation">;</span><br><br><span class="token keyword">let</span> api <span class="token operator">=</span> kittn<span class="token punctuation">.</span><span class="token function">authorize</span><span class="token punctuation">(</span><span class="token string">'meowmeowmeow'</span><span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>
+<blockquote>
+<p>Make sure to replace <code>meowmeowmeow</code> with your API key.</p>
+</blockquote>
+<p>Kittn uses API keys to allow access to the API. You can register a new Kittn API key at our <a href="http://example.com/developers">developer portal</a>.</p>
+<p>Kittn expects for the API key to be included in all API requests to the server in a header that looks like the following:</p>
+<p><code>Authorization: meowmeowmeow</code></p>
+<aside class="notice">
+You must replace <code>meowmeowmeow</code> with your personal API key.
+</aside>
+<h1 id="kittens">Kittens</h1>
+<h2 id="get-all-kittens">Get All Kittens</h2>
+<pre class="language-ruby"><code class="language-ruby"><span class="token keyword">require</span> <span class="token string">'kittn'</span><br><br>api <span class="token operator">=</span> <span class="token constant">Kittn</span><span class="token punctuation">:</span><span class="token punctuation">:</span><span class="token constant">APIClient</span><span class="token punctuation">.</span>authorize<span class="token operator">!</span><span class="token punctuation">(</span><span class="token string">'meowmeowmeow'</span><span class="token punctuation">)</span><br>api<span class="token punctuation">.</span>kittens<span class="token punctuation">.</span>get</code></pre>
+<pre class="language-python"><code class="language-python"><span class="token keyword">import</span> kittn<br><br>api <span class="token operator">=</span> kittn<span class="token punctuation">.</span>authorize<span class="token punctuation">(</span><span class="token string">'meowmeowmeow'</span><span class="token punctuation">)</span><br>api<span class="token punctuation">.</span>kittens<span class="token punctuation">.</span>get<span class="token punctuation">(</span><span class="token punctuation">)</span></code></pre>
+<pre class="language-shell"><code class="language-shell"><span class="token function">curl</span> <span class="token string">"http://example.com/api/kittens"</span><br>  -H <span class="token string">"Authorization: meowmeowmeow"</span></code></pre>
+<pre class="language-javascript"><code class="language-javascript"><span class="token keyword">const</span> kittn <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">'kittn'</span><span class="token punctuation">)</span><span class="token punctuation">;</span><br><br><span class="token keyword">let</span> api <span class="token operator">=</span> kittn<span class="token punctuation">.</span><span class="token function">authorize</span><span class="token punctuation">(</span><span class="token string">'meowmeowmeow'</span><span class="token punctuation">)</span><span class="token punctuation">;</span><br><span class="token keyword">let</span> kittens <span class="token operator">=</span> api<span class="token punctuation">.</span>kittens<span class="token punctuation">.</span><span class="token function">get</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>
+<blockquote>
+<p>The above command returns JSON structured like this:</p>
+</blockquote>
+<pre class="language-json"><code class="language-json"><span class="token punctuation">[</span><br>  <span class="token punctuation">{</span><br>    <span class="token property">"id"</span><span class="token operator">:</span> <span class="token number">1</span><span class="token punctuation">,</span><br>    <span class="token property">"name"</span><span class="token operator">:</span> <span class="token string">"Fluffums"</span><span class="token punctuation">,</span><br>    <span class="token property">"breed"</span><span class="token operator">:</span> <span class="token string">"calico"</span><span class="token punctuation">,</span><br>    <span class="token property">"fluffiness"</span><span class="token operator">:</span> <span class="token number">6</span><span class="token punctuation">,</span><br>    <span class="token property">"cuteness"</span><span class="token operator">:</span> <span class="token number">7</span><br>  <span class="token punctuation">}</span><span class="token punctuation">,</span><br>  <span class="token punctuation">{</span><br>    <span class="token property">"id"</span><span class="token operator">:</span> <span class="token number">2</span><span class="token punctuation">,</span><br>    <span class="token property">"name"</span><span class="token operator">:</span> <span class="token string">"Max"</span><span class="token punctuation">,</span><br>    <span class="token property">"breed"</span><span class="token operator">:</span> <span class="token string">"unknown"</span><span class="token punctuation">,</span><br>    <span class="token property">"fluffiness"</span><span class="token operator">:</span> <span class="token number">5</span><span class="token punctuation">,</span><br>    <span class="token property">"cuteness"</span><span class="token operator">:</span> <span class="token number">10</span><br>  <span class="token punctuation">}</span><br><span class="token punctuation">]</span></code></pre>
+<p>This endpoint retrieves all kittens.</p>
+<h3 id="http-request">HTTP Request</h3>
+<p><code>GET http://example.com/api/kittens</code></p>
+<h3 id="query-parameters">Query Parameters</h3>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>include_cats</td>
+<td>false</td>
+<td>If set to true, the result will also include cats.</td>
+</tr>
+<tr>
+<td>available</td>
+<td>true</td>
+<td>If set to false, the result will include kittens that have already been adopted.</td>
+</tr>
+</tbody>
+</table>
+<aside class="success">
+Remember — a happy kitten is an authenticated kitten!
+</aside>
+<h2 id="get-a-specific-kitten">Get a Specific Kitten</h2>
+<pre class="language-ruby"><code class="language-ruby"><span class="token keyword">require</span> <span class="token string">'kittn'</span><br><br>api <span class="token operator">=</span> <span class="token constant">Kittn</span><span class="token punctuation">:</span><span class="token punctuation">:</span><span class="token constant">APIClient</span><span class="token punctuation">.</span>authorize<span class="token operator">!</span><span class="token punctuation">(</span><span class="token string">'meowmeowmeow'</span><span class="token punctuation">)</span><br>api<span class="token punctuation">.</span>kittens<span class="token punctuation">.</span>get<span class="token punctuation">(</span><span class="token number">2</span><span class="token punctuation">)</span></code></pre>
+<pre class="language-python"><code class="language-python"><span class="token keyword">import</span> kittn<br><br>api <span class="token operator">=</span> kittn<span class="token punctuation">.</span>authorize<span class="token punctuation">(</span><span class="token string">'meowmeowmeow'</span><span class="token punctuation">)</span><br>api<span class="token punctuation">.</span>kittens<span class="token punctuation">.</span>get<span class="token punctuation">(</span><span class="token number">2</span><span class="token punctuation">)</span></code></pre>
+<pre class="language-shell"><code class="language-shell"><span class="token function">curl</span> <span class="token string">"http://example.com/api/kittens/2"</span><br>  -H <span class="token string">"Authorization: meowmeowmeow"</span></code></pre>
+<pre class="language-javascript"><code class="language-javascript"><span class="token keyword">const</span> kittn <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">'kittn'</span><span class="token punctuation">)</span><span class="token punctuation">;</span><br><br><span class="token keyword">let</span> api <span class="token operator">=</span> kittn<span class="token punctuation">.</span><span class="token function">authorize</span><span class="token punctuation">(</span><span class="token string">'meowmeowmeow'</span><span class="token punctuation">)</span><span class="token punctuation">;</span><br><span class="token keyword">let</span> max <span class="token operator">=</span> api<span class="token punctuation">.</span>kittens<span class="token punctuation">.</span><span class="token function">get</span><span class="token punctuation">(</span><span class="token number">2</span><span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>
+<blockquote>
+<p>The above command returns JSON structured like this:</p>
+</blockquote>
+<pre class="language-json"><code class="language-json"><span class="token punctuation">{</span><br>  <span class="token property">"id"</span><span class="token operator">:</span> <span class="token number">2</span><span class="token punctuation">,</span><br>  <span class="token property">"name"</span><span class="token operator">:</span> <span class="token string">"Max"</span><span class="token punctuation">,</span><br>  <span class="token property">"breed"</span><span class="token operator">:</span> <span class="token string">"unknown"</span><span class="token punctuation">,</span><br>  <span class="token property">"fluffiness"</span><span class="token operator">:</span> <span class="token number">5</span><span class="token punctuation">,</span><br>  <span class="token property">"cuteness"</span><span class="token operator">:</span> <span class="token number">10</span><br><span class="token punctuation">}</span></code></pre>
+<p>This endpoint retrieves a specific kitten.</p>
+<aside class="warning">Inside HTML code blocks like this one, you can't use Markdown, so use <code>&lt;code&gt;</code> blocks to denote code.</aside>
+<h3 id="http-request-1">HTTP Request</h3>
+<p><code>GET http://example.com/kittens/&lt;ID&gt;</code></p>
+<h3 id="url-parameters">URL Parameters</h3>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ID</td>
+<td>The ID of the kitten to retrieve</td>
+</tr>
+</tbody>
+</table>
+<h2 id="delete-a-specific-kitten">Delete a Specific Kitten</h2>
+<pre class="language-ruby"><code class="language-ruby"><span class="token keyword">require</span> <span class="token string">'kittn'</span><br><br>api <span class="token operator">=</span> <span class="token constant">Kittn</span><span class="token punctuation">:</span><span class="token punctuation">:</span><span class="token constant">APIClient</span><span class="token punctuation">.</span>authorize<span class="token operator">!</span><span class="token punctuation">(</span><span class="token string">'meowmeowmeow'</span><span class="token punctuation">)</span><br>api<span class="token punctuation">.</span>kittens<span class="token punctuation">.</span>delete<span class="token punctuation">(</span><span class="token number">2</span><span class="token punctuation">)</span></code></pre>
+<pre class="language-python"><code class="language-python"><span class="token keyword">import</span> kittn<br><br>api <span class="token operator">=</span> kittn<span class="token punctuation">.</span>authorize<span class="token punctuation">(</span><span class="token string">'meowmeowmeow'</span><span class="token punctuation">)</span><br>api<span class="token punctuation">.</span>kittens<span class="token punctuation">.</span>delete<span class="token punctuation">(</span><span class="token number">2</span><span class="token punctuation">)</span></code></pre>
+<pre class="language-shell"><code class="language-shell"><span class="token function">curl</span> <span class="token string">"http://example.com/api/kittens/2"</span><br>  -X DELETE<br>  -H <span class="token string">"Authorization: meowmeowmeow"</span></code></pre>
+<pre class="language-javascript"><code class="language-javascript"><span class="token keyword">const</span> kittn <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">'kittn'</span><span class="token punctuation">)</span><span class="token punctuation">;</span><br><br><span class="token keyword">let</span> api <span class="token operator">=</span> kittn<span class="token punctuation">.</span><span class="token function">authorize</span><span class="token punctuation">(</span><span class="token string">'meowmeowmeow'</span><span class="token punctuation">)</span><span class="token punctuation">;</span><br><span class="token keyword">let</span> max <span class="token operator">=</span> api<span class="token punctuation">.</span>kittens<span class="token punctuation">.</span><span class="token function">delete</span><span class="token punctuation">(</span><span class="token number">2</span><span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>
+<blockquote>
+<p>The above command returns JSON structured like this:</p>
+</blockquote>
+<pre class="language-json"><code class="language-json"><span class="token punctuation">{</span><br>  <span class="token property">"id"</span><span class="token operator">:</span> <span class="token number">2</span><span class="token punctuation">,</span><br>  <span class="token property">"deleted"</span> <span class="token operator">:</span> <span class="token string">":("</span><br><span class="token punctuation">}</span></code></pre>
+<p>This endpoint deletes a specific kitten.</p>
+<h3 id="http-request-2">HTTP Request</h3>
+<p><code>DELETE http://example.com/kittens/&lt;ID&gt;</code></p>
+<h3 id="url-parameters-1">URL Parameters</h3>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ID</td>
+<td>The ID of the kitten to delete</td>
+</tr>
+</tbody>
+</table>
