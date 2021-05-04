@@ -1,5 +1,6 @@
 # CO-719
-
+[CO-719 Forschung API Doku APP](https://confluence.d-velop.de/pages/resumedraft.action?draftId=681283194&draftShareId=75b2b48c-60fe-466e-a7ea-dc6d4f92f81e&)  
+[Benutzte .yaml](https://github.com/LarsFischer97/CO-719/blob/main/doc.yaml)  
 
 ## RapiDoc
 [RapiDoc Api](https://mrin9.github.io/RapiDoc/api.html)  
@@ -31,8 +32,9 @@
 
 
 ## ReDoc
-
-[ReDoc Prototype HTML](https://github.com/LarsFischer97/CO-719/blob/main/api_redoc.html)
+[ReDoc Configuration](https://github.com/Redocly/redoc#configuration)  
+[ReDoc Prototype HTML](https://github.com/LarsFischer97/CO-719/blob/main/api_redoc.html)  
+[ReDoc Setup](https://github.com/Redocly/redoc#deployment)  
 
 
 ## Zusatz
